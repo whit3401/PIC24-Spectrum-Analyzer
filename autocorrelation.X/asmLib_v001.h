@@ -1,12 +1,12 @@
 /* 
- * File:   whit3401_asmLib_v001.h
+ * File:   asmLib_v001.h
  * Author: tysen
  *
  * Created on February 25, 2025, 12:26 AM
  */
 
-#ifndef WHIT3401_LAB4_ASMLIB_V001_H
-#define	WHIT3401_LAB4_ASMLIB_V001_H
+#ifndef ASMLIB_V001_H
+#define	ASMLIB_V001_H
 
 #ifdef	__cplusplus
 extern "C" {
@@ -22,5 +22,5 @@ void write_1(void);
 }
 #endif
 
-#endif	/* WHIT3401_LAB4_ASMLIB_V001_H */
+#endif	/* ASMLIB_V001_H */
 

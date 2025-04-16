@@ -28,4 +28,5 @@ void end_sampling(){
 
 int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
+    return 0;
 }

@@ -9,7 +9,8 @@
 #include "ADC_microphone_in.h"
 #include "autocorrelation_library.h"
 #include "oledDisplay_API_library.h"
-#include "whit3401_asmLib_v001.h"
+#include "asmLib_v001.h"
+#include "button_control_library.h"
 
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
 #pragma config ICS = PGx1          // Comm Channel Select (Emulator EMUC1/EMUD1 pins are shared with PGC1/PGD1)
@@ -28,26 +29,40 @@
 #pragma config FNOSC = FRCPLL      // Oscillator Select (Fast RC Oscillator with PLL module (FRCPLL))
 
 
-void delay(int delay_in_ms) { // FOR TESTING PURPOSES, aim for non-polling final design, especially in libraries as it could cause issues
-    for (int i=0; i<delay_in_ms; i++) wait_1ms();
-}
-
 void setup(void) {
+    CLKDIVbits.RCDIV=0; // Fcy 16 MHz
+    AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
+    lcd_setup();
 }
 
 
 int main(void) {
     setup();
     
+    int firstPress = 1; // TEMP DEBUGGING VAR
+    int firstUp = 1; // TEMP DEBUGGING VAR
     
     while(1){
         
+        firstPress = 1;
         while(is_button_pressed()) {
             
             // take and store audio sample
+            int audioSignal = PORTAbits.RA0; // PLACEHOLDER
+            if (firstPress){
+                
+                lcd_printChar('0'+audioSignal);
+                firstPress = 0;
+                firstUp = 1;
+            }
             
         }
+        if(firstUp){
+            lcd_clear();
+            firstUp = 0;
+        }
+        
         
         if(is_sample_ready()){
             // transform audio data to frequency domain

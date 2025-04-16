@@ -29,12 +29,12 @@ CND_CONF=default
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
 IMAGE_TYPE=debug
 OUTPUT_SUFFIX=elf
-DEBUGGABLE_SUFFIX=elf
+DEBUGGABLE_SUFFIX=null
 FINAL_IMAGE=${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 else
 IMAGE_TYPE=production
 OUTPUT_SUFFIX=hex
-DEBUGGABLE_SUFFIX=elf
+DEBUGGABLE_SUFFIX=null
 FINAL_IMAGE=${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 endif
 
@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c whit3401_asmLib_v001.s button_control_library.c
+SOURCEFILES_QUOTED_IF_SPACED=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c button_control_library.c asmLib_v001.s
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/whit3401_asmLib_v001.o ${OBJECTDIR}/button_control_library.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/autocorrelation_library.o.d ${OBJECTDIR}/spectrum_analyzer_main.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d ${OBJECTDIR}/ADC_microphone_in.o.d ${OBJECTDIR}/whit3401_asmLib_v001.o.d ${OBJECTDIR}/button_control_library.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/asmLib_v001.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/autocorrelation_library.o.d ${OBJECTDIR}/spectrum_analyzer_main.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d ${OBJECTDIR}/ADC_microphone_in.o.d ${OBJECTDIR}/button_control_library.o.d ${OBJECTDIR}/asmLib_v001.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/whit3401_asmLib_v001.o ${OBJECTDIR}/button_control_library.o
+OBJECTFILES=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/asmLib_v001.o
 
 # Source Files
-SOURCEFILES=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c whit3401_asmLib_v001.s button_control_library.c
+SOURCEFILES=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c button_control_library.c asmLib_v001.s
 
 
 
@@ -84,113 +84,8 @@ ifneq ($(INFORMATION_MESSAGE), )
 endif
 	${MAKE}  -f nbproject/Makefile-default.mk ${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}
 
-MP_PROCESSOR_OPTION=24FJ64GA002
-MP_LINKER_FILE_OPTION=,--script=p24FJ64GA002.gld
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: compile
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/autocorrelation_library.o: autocorrelation_library.c  .generated_files/flags/default/af2c7e93358618a0422bae308314c9febf39f181 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/autocorrelation_library.o.d 
-	@${RM} ${OBJECTDIR}/autocorrelation_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  autocorrelation_library.c  -o ${OBJECTDIR}/autocorrelation_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/autocorrelation_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/spectrum_analyzer_main.o: spectrum_analyzer_main.c  .generated_files/flags/default/6e2712bee732200cde03e49a84a638aad8821439 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/spectrum_analyzer_main.o.d 
-	@${RM} ${OBJECTDIR}/spectrum_analyzer_main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  spectrum_analyzer_main.c  -o ${OBJECTDIR}/spectrum_analyzer_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/spectrum_analyzer_main.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/4ee0b9566600db9db8b0cd98de87d721b525a865 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/ADC_microphone_in.o: ADC_microphone_in.c  .generated_files/flags/default/fafb448780f85d2ca8bb6f8cbe4fc61f0d502284 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ADC_microphone_in.o.d 
-	@${RM} ${OBJECTDIR}/ADC_microphone_in.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ADC_microphone_in.c  -o ${OBJECTDIR}/ADC_microphone_in.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ADC_microphone_in.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_files/flags/default/fa5bb8924bd0f2c3d7f4ff4fe3d9ec234001cee .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/button_control_library.o.d 
-	@${RM} ${OBJECTDIR}/button_control_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-else
-${OBJECTDIR}/autocorrelation_library.o: autocorrelation_library.c  .generated_files/flags/default/bd343275c851bf462af42c1ee886dd439b8f3da3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/autocorrelation_library.o.d 
-	@${RM} ${OBJECTDIR}/autocorrelation_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  autocorrelation_library.c  -o ${OBJECTDIR}/autocorrelation_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/autocorrelation_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/spectrum_analyzer_main.o: spectrum_analyzer_main.c  .generated_files/flags/default/cd24ed20131964807900e06f2f1bbc4750fa09be .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/spectrum_analyzer_main.o.d 
-	@${RM} ${OBJECTDIR}/spectrum_analyzer_main.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  spectrum_analyzer_main.c  -o ${OBJECTDIR}/spectrum_analyzer_main.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/spectrum_analyzer_main.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/efb7ea1621b76381a1bbb2e158cc6d94248719fc .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/ADC_microphone_in.o: ADC_microphone_in.c  .generated_files/flags/default/1f147a6aef0c3aca57944ce0c037a973a42052b6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/ADC_microphone_in.o.d 
-	@${RM} ${OBJECTDIR}/ADC_microphone_in.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  ADC_microphone_in.c  -o ${OBJECTDIR}/ADC_microphone_in.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ADC_microphone_in.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_files/flags/default/9df5d35126e7227014c3c771ae2a2a9c82877769 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/button_control_library.o.d 
-	@${RM} ${OBJECTDIR}/button_control_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
-endif
-
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: assemble
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${OBJECTDIR}/whit3401_asmLib_v001.o: whit3401_asmLib_v001.s  .generated_files/flags/default/8f1a6b6bc8c947d52075d00500ee133b1595491c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o.d 
-	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  whit3401_asmLib_v001.s  -o ${OBJECTDIR}/whit3401_asmLib_v001.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/whit3401_asmLib_v001.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
-else
-${OBJECTDIR}/whit3401_asmLib_v001.o: whit3401_asmLib_v001.s  .generated_files/flags/default/36ca349ea2cd08b697ff22bb0b90b2264ab7d2b6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o.d 
-	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o 
-	${MP_CC} $(MP_EXTRA_AS_PRE)  whit3401_asmLib_v001.s  -o ${OBJECTDIR}/whit3401_asmLib_v001.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/whit3401_asmLib_v001.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
-	
-endif
-
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: assemblePreproc
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-else
-endif
-
-# ------------------------------------------------------------------------------------
-# Rules for buildStep: link
-ifeq ($(TYPE_IMAGE), DEBUG_RUN)
-${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk    
-	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -o ${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -D__DEBUG=__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)      -Wl,,,--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,-D__DEBUG=__DEBUG,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,${DISTDIR}/memoryfile.xml$(MP_EXTRA_LD_POST)  -mdfp="${DFP_DIR}/xc16" 
-	
-else
-${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${OUTPUT_SUFFIX}: ${OBJECTFILES}  nbproject/Makefile-${CND_CONF}.mk   
-	@${MKDIR} ${DISTDIR} 
-	${MP_CC} $(MP_EXTRA_LD_PRE)  -o ${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX}  ${OBJECTFILES_QUOTED_IF_SPACED}      -mcpu=$(MP_PROCESSOR_OPTION)        -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -Wl,,,--defsym=__MPLAB_BUILD=1,$(MP_LINKER_FILE_OPTION),--stack=16,--check-sections,--data-init,--pack-data,--handles,--isr,--no-gc-sections,--fill-upper=0,--stackguard=16,--no-force-link,--smart-io,-Map="${DISTDIR}/${PROJECTNAME}.${IMAGE_TYPE}.map",--report-mem,--memorysummary,${DISTDIR}/memoryfile.xml$(MP_EXTRA_LD_POST)  -mdfp="${DFP_DIR}/xc16" 
-	${MP_CC_DIR}\\xc16-bin2hex ${DISTDIR}/autocorrelation.X.${IMAGE_TYPE}.${DEBUGGABLE_SUFFIX} -a  -omf=elf   -mdfp="${DFP_DIR}/xc16" 
-	
-endif
-
+MP_PROCESSOR_OPTION=
+MP_LINKER_FILE_OPTION=,--script=
 
 # Subprojects
 .build-subprojects:

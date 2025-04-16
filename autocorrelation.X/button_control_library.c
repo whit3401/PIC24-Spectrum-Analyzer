@@ -8,10 +8,10 @@
 #include "xc.h"
 #include "button_control_library.h"
 
-volatile int isButtonPressed = 0;
-
-
-
 int is_button_pressed(void){
-    return isButtonPressed;
+    return PORTBbits.RB4; //return RB4 status, the port is high only when the button is depressed
+}
+
+void initPushButton(){
+    TRISBbits.TRISB4 |= 1; //set RP4 to input
 }

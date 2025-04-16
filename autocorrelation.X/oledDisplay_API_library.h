@@ -12,7 +12,17 @@
 extern "C" {
 #endif
 
-
+void lcd_setup(void);
+void delay(int delay_in_ms);
+void lcd_reset(void);
+void lcd_cmd(char command);
+void lcd_init(int LCDcontrast);
+void display_setup();
+void lcd_setCursor(char x, char y);
+void lcd_printChar(char myChar);
+void lcd_scroll();
+void lcd_printStr(const char *str);
+void lcd_clear();
 
 
 #ifdef	__cplusplus
