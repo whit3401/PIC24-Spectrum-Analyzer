@@ -3,7 +3,7 @@
     <type>com.microchip.mplab.nbide.embedded.makeproject</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/make-project/1">
-            <name>autocorrelation</name>
+            <name>spectrum_analyzer_v001</name>
             <creation-uuid>fa6c4931-712b-4273-b347-9a3c5d84cb15</creation-uuid>
             <make-project-type>0</make-project-type>
             <sourceEncoding>ISO-8859-1</sourceEncoding>

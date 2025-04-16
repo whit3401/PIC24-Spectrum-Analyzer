@@ -1,4 +1,5 @@
 #include "xc.h"
+#include "autocorrelation_library.h"
 
 long int array [] = {0}; // array will take in the signal values
 int size = 0; 
