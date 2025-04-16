@@ -27,8 +27,6 @@
 #define BUFFER_SIZE 1024
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
 volatile long int buffer[1024];
-volatile long int headPointer = 0; 
-volatile long int tailPointer = 0;
 volatile long int sampleCount = 0; 
 
 
@@ -51,15 +49,11 @@ void end_sampling(){
 int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
     static int arr[BUFFER_SIZE];
-    int index;
-
-    // Compute the starting point (oldest sample)
-    int start = (headPointer - sampleCount + BUFFER_SIZE) % BUFFER_SIZE;
 
     for (int i = 0; i < sampleCount; i++) {
-        index = (start + i) % BUFFER_SIZE;
-        arr[i] = buffer[index];
+        arr[i] = buffer[i];
     }
+    
     return arr;
 }
 
@@ -100,43 +94,14 @@ void __attribute__((__interrupt__, auto_psv)) _ADC1Interrupt(void){
     putVal(ADC1BUF0);
 }
 
-void __attribute__((interrupt, auto_psv)) _T1Interrupt(){
-    //Interrupt for timer1
-    IFS0bits.T1IF = 0; 
-    
-}
-void timer1Init(void)
-{
-    //Initializes the 100ms timer
-    T1CONbits.TON = 0;        // Turn off Timer1
-    T1CONbits.TCS = 0;        // Use internal clock (Fcy)
-    T1CONbits.TCKPS = 0b10;   // Prescaler 1:64
-
-    TMR1 = 0;                 // Clear Timer1 count
-    PR1 = 25000;              // 100ms period at 16MHz Fcy
-
-    _T1IF = 0;
-    _T1IE = 1;
-    
-    T1CONbits.TON = 1;        // Start Timer1
-}
-
 void putVal(int newValue){
-    buffer[headPointer++] = newValue;
-    headPointer %= BUFFER_SIZE; 
-     // If head catches up to tail, move tail forward (overwrite oldest data)
-    if (headPointer == tailPointer) {
-        tailPointer = (tailPointer + 1) % BUFFER_SIZE;
-    }
-    sampleCount++;
+    buffer[sampleCount++] = newValue;
 }
 
 void initBuffer(){
     for(int i = 0; i < BUFFER_SIZE; i++){
         buffer[i] = 0;
     }
-    headPointer = 0; 
-    tailPointer = 0;
     sampleCount = 0;
 }
 
@@ -144,7 +109,6 @@ void initBuffer(){
 int main(void) {
     AD1PCFG = 0x9FFF;
     adcInit();
-    timer1Init();
     initBuffer();
 
     while(1){
