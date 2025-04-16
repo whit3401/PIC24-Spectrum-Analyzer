@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project>
-  <executable name="dist/default/production/autocorrelation.X.production.elf">
+  <executable name="dist/default/debug/autocorrelation.X.debug.elf">
     <memory name="data">
       <units>bytes</units>
       <length>8192</length>
-      <used>6148</used>
-      <free>2044</free>
+      <used>4180</used>
+      <free>4012</free>
     </memory>
     <memory name="program">
       <units>bytes</units>
       <length>65274</length>
-      <used>1659</used>
-      <free>63615</free>
+      <used>1620</used>
+      <free>63654</free>
     </memory>
   </executable>
 </project>

@@ -15,8 +15,9 @@ extern "C" {
 
     void begin_sampling(void);
     void end_sampling();
-    int* get_digital_signal_data(); //returns an array of all the samples taken
+    long int* get_digital_signal_data(); //returns an array of all the samples taken
     int get_sample_size(); //returns the size of the array
+    int is_sample_ready();
 
     void putVal(int newValue);	// add a new value to the buffer
     void initBuffer();		// set all buffer vals to zero

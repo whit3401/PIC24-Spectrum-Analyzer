@@ -34,17 +34,16 @@ void setup(void) {
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
     lcd_setup();
+    adcInit();
+    initBuffer();
 }
 
 
 int main(void) {
     setup();
-    AD1PCFG = 0x9FFF;
-    adcInit();
-    initBuffer();
     
     int firstPress = 1; // TEMP DEBUGGING VAR
-    int firstUp = 1; // TEMP DEBUGGING VAR
+    int firstUp = 0; // TEMP DEBUGGING VAR
     
     while(1){
         
@@ -54,7 +53,7 @@ int main(void) {
             // take and store audio sample
             int audioSignal = PORTAbits.RA0; // PLACEHOLDER
             if (firstPress){
-                
+                begin_sampling();
                 lcd_printChar('0'+audioSignal);
                 firstPress = 0;
                 firstUp = 1;
@@ -62,15 +61,18 @@ int main(void) {
             
         }
         if(firstUp){
+            end_sampling();
             lcd_clear();
             firstUp = 0;
         }
         
         
-//        if(is_sample_ready()){
-//            // transform audio data to frequency domain
-//            // update display with transformed output
-//        }
+        if(is_sample_ready()){
+            // transform audio data to frequency domain
+            // update display with transformed output
+            int x = 1;
+            int abc = get_digital_signal_data();
+        }
             
                 
     }

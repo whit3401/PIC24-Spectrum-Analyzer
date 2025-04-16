@@ -8,10 +8,11 @@
 #include "xc.h"
 #include "ADC_microphone_in.h"
 
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 2048
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
-volatile long int buffer[1024];
-volatile long int sampleCount = 0; 
+volatile int buffer[BUFFER_SIZE];
+volatile int sampleCount = 0; 
+volatile int sampleReady = 0;
 
 
 /*
@@ -20,28 +21,32 @@ volatile long int sampleCount = 0;
 */
 void begin_sampling(){
     //enable ADC interrupts
+    sampleReady = 0;
     AD1CON1bits.ADON = 1;    // Turn on ADC
+    _AD1IE = 1;
     initBuffer();
 }
 
 void end_sampling(){
     //disable ADC interrupts
-    AD1CON1bits.ADON = 0;    // Turn on ADC
-    
+    AD1CON1bits.ADON = 0;    // Turn off ADC
+    _AD1IE = 0;
+    sampleReady = 1;
 }
-
-int* get_digital_signal_data(){
+/*
+ * This array will return values between 0 and 1023, to convert to voltage, 
+ * multiply by 3.3/1024 
+ */
+long int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
-    static int arr[BUFFER_SIZE];
 
-    for (int i = 0; i < sampleCount; i++) {
-        arr[i] = buffer[i];
-    }
-    
-    return arr;
+    sampleReady = 0;
+    return buffer;
 }
 
-
+int is_sample_ready(){
+    return sampleReady;
+}
 
 int get_sample_size(){
     //return the length of the sample array
@@ -59,12 +64,13 @@ void adcInit(void){
     AD1CON1bits.FORM = 0;    // Integer output
     AD1CON1bits.SSRC = 2;    // Timer3 ends sampling, starts conversion
     AD1CON2bits.VCFG = 0;
+    AD1CON1bits.ADON = 0;    // Turn off ADC
     AD1CON1bits.ASAM = 1;    // Auto-sample
     AD1CON2bits.SMPI = 0;    // Interrupt after every sample
     AD1CON3bits.ADCS = 63;   // ADC clock period (TAD) = (ADCS + 1) * Tcy
     AD1CON3bits.SAMC = 16;   // Auto-sample time (e.g., 16 TAD)
     _AD1IF = 0;
-    _AD1IE = 1;
+    _AD1IE = 0;
     
     T3CON = 0x0010;
     PR3 = 15624; 
