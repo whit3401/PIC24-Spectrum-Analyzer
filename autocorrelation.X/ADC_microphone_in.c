@@ -25,10 +25,11 @@
 #pragma config FNOSC = FRCPLL      // Oscillator Select (Fast RC Oscillator with PLL module (FRCPLL))
 
 #define BUFFER_SIZE 1024
-#define NUMSAMPLES 128
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
-volatile long int buffer[BUFFER_SIZE];
-volatile long int headPointer = 0;
+volatile long int buffer[1024];
+volatile long int headPointer = 0; 
+volatile long int tailPointer = 0;
+volatile long int sampleCount = 0; 
 
 
 /*
@@ -37,20 +38,36 @@ volatile long int headPointer = 0;
 */
 void begin_sampling(){
     //enable ADC interrupts
+    AD1CON1bits.ADON = 1;    // Turn on ADC
+    initBuffer();
 }
 
 void end_sampling(){
     //disable ADC interrupts
+    AD1CON1bits.ADON = 0;    // Turn on ADC
+    
 }
 
 int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
-    return 0;
+    static int arr[BUFFER_SIZE];
+    int index;
+
+    // Compute the starting point (oldest sample)
+    int start = (headPointer - sampleCount + BUFFER_SIZE) % BUFFER_SIZE;
+
+    for (int i = 0; i < sampleCount; i++) {
+        index = (start + i) % BUFFER_SIZE;
+        arr[i] = buffer[index];
+    }
+    return arr;
 }
+
+
 
 int get_sample_size(){
     //return the length of the sample array
-    return 0;
+    return sampleCount;
 }
 
 
@@ -68,7 +85,6 @@ void adcInit(void){
     AD1CON2bits.SMPI = 0;    // Interrupt after every sample
     AD1CON3bits.ADCS = 63;   // ADC clock period (TAD) = (ADCS + 1) * Tcy
     AD1CON3bits.SAMC = 16;   // Auto-sample time (e.g., 16 TAD)
-    AD1CON1bits.ADON = 1;    // Turn on ADC
     _AD1IF = 0;
     _AD1IE = 1;
     
@@ -108,24 +124,20 @@ void timer1Init(void)
 void putVal(int newValue){
     buffer[headPointer++] = newValue;
     headPointer %= BUFFER_SIZE; 
-}
-
-int getAvg(){
-    long int sum = 0;
-    int index;
-
-    for(int i = 0; i < NUMSAMPLES; i++){
-        index = (headPointer - i - 1 + BUFFER_SIZE) % BUFFER_SIZE;
-        sum += buffer[index];
+     // If head catches up to tail, move tail forward (overwrite oldest data)
+    if (headPointer == tailPointer) {
+        tailPointer = (tailPointer + 1) % BUFFER_SIZE;
     }
-
-    return sum / NUMSAMPLES;
+    sampleCount++;
 }
 
 void initBuffer(){
     for(int i = 0; i < BUFFER_SIZE; i++){
         buffer[i] = 0;
     }
+    headPointer = 0; 
+    tailPointer = 0;
+    sampleCount = 0;
 }
 
 
@@ -139,5 +151,3 @@ int main(void) {
     
     }
 }
-
->>>>>>> 07a7b1ffa6d90dfd4a63d5c832efcaef70ba181a
