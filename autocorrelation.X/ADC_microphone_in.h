@@ -16,15 +16,14 @@ extern "C" {
     void begin_sampling(void);
     void end_sampling();
     int* get_digital_signal_data(); //returns an array of all the samples taken
-    int get_sample_size; //returns the size of the array
+    int get_sample_size(); //returns the size of the array
 
-
-void putVal(int newValue);	// add a new value to the buffer
-int getAvg();          	// average all buffer vals
-void initBuffer();		// set all buffer vals to zero
-void wait_1ms(void);
-void timer1Init(void);
-void adcInit(void);
+    void putVal(int newValue);	// add a new value to the buffer
+    int getAvg();          	// average all buffer vals
+    void initBuffer();		// set all buffer vals to zero
+    void wait_1ms(void);
+    void timer1Init(void);
+    void adcInit(void);
 
 
 #ifdef	__cplusplus
@@ -32,4 +31,3 @@ void adcInit(void);
 #endif
 
 #endif	/* ADC_MICROPHONE_IN_H */
-
