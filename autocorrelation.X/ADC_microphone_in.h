@@ -19,10 +19,7 @@ extern "C" {
     int get_sample_size(); //returns the size of the array
 
     void putVal(int newValue);	// add a new value to the buffer
-    int getAvg();          	// average all buffer vals
     void initBuffer();		// set all buffer vals to zero
-    void wait_1ms(void);
-    void timer1Init(void);
     void adcInit(void);
 
 

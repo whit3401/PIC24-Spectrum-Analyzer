@@ -39,6 +39,9 @@ void setup(void) {
 
 int main(void) {
     setup();
+    AD1PCFG = 0x9FFF;
+    adcInit();
+    initBuffer();
     
     int firstPress = 1; // TEMP DEBUGGING VAR
     int firstUp = 1; // TEMP DEBUGGING VAR
@@ -64,10 +67,10 @@ int main(void) {
         }
         
         
-        if(is_sample_ready()){
-            // transform audio data to frequency domain
-            // update display with transformed output
-        }
+//        if(is_sample_ready()){
+//            // transform audio data to frequency domain
+//            // update display with transformed output
+//        }
             
                 
     }
