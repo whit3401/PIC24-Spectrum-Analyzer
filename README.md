@@ -1,2 +1,2 @@
-# PIC24-Guitar-Tuner-EE2361-Final-Project
-Creating a guitar tuner with a PIC24FJ64GA002 microcontroller to take in analog audio signal from a guitar, and visually represent the note and how in tune the received pitch is
+# PIC24-Spectrum-Analyzer-EE2361-Final-Project
+Creating a spectrum analyzer based around a PIC24FJ64GA002 microcontroller. The goal is to take in analog audio signal from a button-controlled microphone, and visually represent the frequency domain of the signal on an oled display.
