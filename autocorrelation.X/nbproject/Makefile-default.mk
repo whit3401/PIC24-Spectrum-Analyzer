@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c
+SOURCEFILES_QUOTED_IF_SPACED=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c whit3401_asmLib_v001.s button_control_library.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/autocorrelation_library.o.d ${OBJECTDIR}/spectrum_analyzer_main.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d ${OBJECTDIR}/ADC_microphone_in.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/whit3401_asmLib_v001.o ${OBJECTDIR}/button_control_library.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/autocorrelation_library.o.d ${OBJECTDIR}/spectrum_analyzer_main.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d ${OBJECTDIR}/ADC_microphone_in.o.d ${OBJECTDIR}/whit3401_asmLib_v001.o.d ${OBJECTDIR}/button_control_library.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o
+OBJECTFILES=${OBJECTDIR}/autocorrelation_library.o ${OBJECTDIR}/spectrum_analyzer_main.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/ADC_microphone_in.o ${OBJECTDIR}/whit3401_asmLib_v001.o ${OBJECTDIR}/button_control_library.o
 
 # Source Files
-SOURCEFILES=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c
+SOURCEFILES=autocorrelation_library.c spectrum_analyzer_main.c oledDisplay_API_library.c ADC_microphone_in.c whit3401_asmLib_v001.s button_control_library.c
 
 
 
@@ -113,6 +113,12 @@ ${OBJECTDIR}/ADC_microphone_in.o: ADC_microphone_in.c  .generated_files/flags/de
 	@${RM} ${OBJECTDIR}/ADC_microphone_in.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ADC_microphone_in.c  -o ${OBJECTDIR}/ADC_microphone_in.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ADC_microphone_in.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_files/flags/default/fa5bb8924bd0f2c3d7f4ff4fe3d9ec234001cee .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/button_control_library.o.d 
+	@${RM} ${OBJECTDIR}/button_control_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 else
 ${OBJECTDIR}/autocorrelation_library.o: autocorrelation_library.c  .generated_files/flags/default/bd343275c851bf462af42c1ee886dd439b8f3da3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
@@ -138,12 +144,30 @@ ${OBJECTDIR}/ADC_microphone_in.o: ADC_microphone_in.c  .generated_files/flags/de
 	@${RM} ${OBJECTDIR}/ADC_microphone_in.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  ADC_microphone_in.c  -o ${OBJECTDIR}/ADC_microphone_in.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/ADC_microphone_in.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
+${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_files/flags/default/9df5d35126e7227014c3c771ae2a2a9c82877769 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/button_control_library.o.d 
+	@${RM} ${OBJECTDIR}/button_control_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
 endif
 
 # ------------------------------------------------------------------------------------
 # Rules for buildStep: assemble
 ifeq ($(TYPE_IMAGE), DEBUG_RUN)
+${OBJECTDIR}/whit3401_asmLib_v001.o: whit3401_asmLib_v001.s  .generated_files/flags/default/8f1a6b6bc8c947d52075d00500ee133b1595491c .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o.d 
+	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  whit3401_asmLib_v001.s  -o ${OBJECTDIR}/whit3401_asmLib_v001.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/whit3401_asmLib_v001.o.d",--defsym=__MPLAB_BUILD=1,--defsym=__MPLAB_DEBUG=1,--defsym=__DEBUG=1,--defsym=__MPLAB_DEBUGGER_SIMULATOR=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	
 else
+${OBJECTDIR}/whit3401_asmLib_v001.o: whit3401_asmLib_v001.s  .generated_files/flags/default/36ca349ea2cd08b697ff22bb0b90b2264ab7d2b6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o.d 
+	@${RM} ${OBJECTDIR}/whit3401_asmLib_v001.o 
+	${MP_CC} $(MP_EXTRA_AS_PRE)  whit3401_asmLib_v001.s  -o ${OBJECTDIR}/whit3401_asmLib_v001.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-MD,"${OBJECTDIR}/whit3401_asmLib_v001.o.d",--defsym=__MPLAB_BUILD=1,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"
+	
 endif
 
 # ------------------------------------------------------------------------------------

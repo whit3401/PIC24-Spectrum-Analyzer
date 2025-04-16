@@ -13,7 +13,10 @@ extern "C" {
 #endif
 
 
-
+    int is_sample_ready(void);
+    void begin_sampling(void);
+    void end_sampling();
+    int* get_digital_signal_data();
 
 #ifdef	__cplusplus
 }

@@ -7,6 +7,8 @@
       <itemPath>autocorrelation_library.h</itemPath>
       <itemPath>oledDisplay_API_library.h</itemPath>
       <itemPath>ADC_microphone_in.h</itemPath>
+      <itemPath>whit3401_asmLib_v001.h</itemPath>
+      <itemPath>button_control_library.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -24,6 +26,8 @@
       <itemPath>spectrum_analyzer_main.c</itemPath>
       <itemPath>oledDisplay_API_library.c</itemPath>
       <itemPath>ADC_microphone_in.c</itemPath>
+      <itemPath>whit3401_asmLib_v001.s</itemPath>
+      <itemPath>button_control_library.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
