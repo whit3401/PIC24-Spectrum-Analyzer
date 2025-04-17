@@ -4,11 +4,11 @@ Tool Name:
   c:\program files\microchip\xc16\v2.10\bin\bin\..\bin/elf-ld.exe
 
 Command:
-  -TC:\\Users\\johng\\AppData\\Local\\Temp\\tmp0000b62c.00 \
-  -TC:\\Users\\johng\\AppData\\Local\\Temp\\tmp0000b62c.01 \
-  -TC:\\Users\\johng\\AppData\\Local\\Temp\\tmp0000b62c.02 \
-  -TC:\\Users\\johng\\AppData\\Local\\Temp\\tmp0000b62c.03 \
-  -TC:\\Users\\johng\\AppData\\Local\\Temp\\tmp0000b62c.04 \
+  -TC:\\Users\\tysen\\AppData\\Local\\Temp\\tmp000050e0.00 \
+  -TC:\\Users\\tysen\\AppData\\Local\\Temp\\tmp000050e0.01 \
+  -TC:\\Users\\tysen\\AppData\\Local\\Temp\\tmp000050e0.02 \
+  -TC:\\Users\\tysen\\AppData\\Local\\Temp\\tmp000050e0.03 \
+  -TC:\\Users\\tysen\\AppData\\Local\\Temp\\tmp000050e0.04 \
   -p24FJ64GA002 \
   --mdfp=C:/Program Files/Microchip/MPLABX/v6.20/packs/Microchip/PIC24F-GA-GB_DFP/1.9.336/xc16 \
   -o \
@@ -77,10 +77,11 @@ Default Scalar Model: Small
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
 .text                        0x200                0xf6           0x171  (369)
-.text                        0x2f6               0x334           0x4ce  (1230)
-.dinit                       0x62a                 0xe            0x15  (21)
+.const                       0x2f6                0x18            0x24  (36)
+.text                        0x30e               0x33c           0x4da  (1242)
+.dinit                       0x64a                 0xe            0x15  (21)
 
-                 Total "program" memory used (bytes):          0x654  (1620) 2%
+                 Total "program" memory used (bytes):          0x684  (1668) 2%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -130,33 +131,33 @@ External Symbols in Program Memory (by address):
                   0x000252                  __data_init_standard
                   0x0002c8                  __ADC1Interrupt
                   0x0002f0                  __DefaultInterrupt
-                  0x0002f6                  _delay
-                  0x000310                  _lcd_reset
-                  0x000326                  _lcd_cmd
-                  0x00037a                  _lcd_init
-                  0x0003b6                  _display_setup
-                  0x0003d0                  _lcd_setup
-                  0x0003f6                  _lcd_setCursor
-                  0x00040c                  _lcd_printChar
-                  0x000462                  _lcd_scroll
-                  0x00046c                  _lcd_printStr
-                  0x000492                  _lcd_clear
-                  0x00049c                  _begin_sampling
-                  0x0004aa                  _end_sampling
-                  0x0004b8                  _get_digital_signal_data
-                  0x0004c2                  _is_sample_ready
-                  0x0004ca                  _get_sample_size
-                  0x0004d2                  _adcInit
-                  0x000528                  _putVal
-                  0x00053e                  _initBuffer
-                  0x000562                  _setup
-                  0x00057a                  _main
-                  0x0005d6                  _is_button_pressed
-                  0x0005e4                  _initPushButton
-                  0x000602                  _wait_100us
-                  0x000608                  _wait_1ms
-                  0x00060e                  _write_0
-                  0x00061c                  _write_1
+                  0x00030e                  _delay
+                  0x000328                  _lcd_reset
+                  0x00033e                  _lcd_cmd
+                  0x000392                  _lcd_init
+                  0x0003ce                  _display_setup
+                  0x0003e8                  _lcd_setup
+                  0x00040e                  _lcd_setCursor
+                  0x000424                  _lcd_printChar
+                  0x00047a                  _lcd_scroll
+                  0x000484                  _lcd_printStr
+                  0x0004aa                  _lcd_clear
+                  0x0004b4                  _begin_sampling
+                  0x0004c2                  _end_sampling
+                  0x0004d0                  _get_digital_signal_data
+                  0x0004da                  _is_sample_ready
+                  0x0004e2                  _get_sample_size
+                  0x0004ea                  _adcInit
+                  0x000540                  _putVal
+                  0x000556                  _initBuffer
+                  0x00057a                  _setup
+                  0x000592                  _main
+                  0x0005f6                  _is_button_pressed
+                  0x000604                  _initPushButton
+                  0x000622                  _wait_100us
+                  0x000628                  _wait_1ms
+                  0x00062e                  _write_0
+                  0x00063c                  _write_1
 
 External Symbols in Program Memory (by name):
 
@@ -166,33 +167,33 @@ External Symbols in Program Memory (by name):
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x0004d2                  _adcInit
-                  0x00049c                  _begin_sampling
-                  0x0002f6                  _delay
-                  0x0003b6                  _display_setup
-                  0x0004aa                  _end_sampling
-                  0x0004b8                  _get_digital_signal_data
-                  0x0004ca                  _get_sample_size
-                  0x00053e                  _initBuffer
-                  0x0005e4                  _initPushButton
-                  0x0005d6                  _is_button_pressed
-                  0x0004c2                  _is_sample_ready
-                  0x000492                  _lcd_clear
-                  0x000326                  _lcd_cmd
-                  0x00037a                  _lcd_init
-                  0x00040c                  _lcd_printChar
-                  0x00046c                  _lcd_printStr
-                  0x000310                  _lcd_reset
-                  0x000462                  _lcd_scroll
-                  0x0003f6                  _lcd_setCursor
-                  0x0003d0                  _lcd_setup
-                  0x00057a                  _main
-                  0x000528                  _putVal
-                  0x000562                  _setup
-                  0x000602                  _wait_100us
-                  0x000608                  _wait_1ms
-                  0x00060e                  _write_0
-                  0x00061c                  _write_1
+                  0x0004ea                  _adcInit
+                  0x0004b4                  _begin_sampling
+                  0x00030e                  _delay
+                  0x0003ce                  _display_setup
+                  0x0004c2                  _end_sampling
+                  0x0004d0                  _get_digital_signal_data
+                  0x0004e2                  _get_sample_size
+                  0x000556                  _initBuffer
+                  0x000604                  _initPushButton
+                  0x0005f6                  _is_button_pressed
+                  0x0004da                  _is_sample_ready
+                  0x0004aa                  _lcd_clear
+                  0x00033e                  _lcd_cmd
+                  0x000392                  _lcd_init
+                  0x000424                  _lcd_printChar
+                  0x000484                  _lcd_printStr
+                  0x000328                  _lcd_reset
+                  0x00047a                  _lcd_scroll
+                  0x00040e                  _lcd_setCursor
+                  0x0003e8                  _lcd_setup
+                  0x000592                  _main
+                  0x000540                  _putVal
+                  0x00057a                  _setup
+                  0x000622                  _wait_100us
+                  0x000628                  _wait_1ms
+                  0x00062e                  _write_0
+                  0x00063c                  _write_1
 
 Memory Configuration
 
@@ -298,13 +299,13 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000       0x2004
+.debug_info       0x000000       0x205e
  *(.debug_info)
- .debug_info      0x000000        0x3fb build/default/debug/spectrum_analyzer_main.o
- .debug_info      0x0003fb        0x804 build/default/debug/oledDisplay_API_library.o
- .debug_info      0x000bff        0xedb build/default/debug/ADC_microphone_in.o
- .debug_info      0x001ada        0x49b build/default/debug/button_control_library.o
- .debug_info      0x001f75         0x8f build/default/debug/asmLib_v001.o
+ .debug_info      0x000000        0x40d build/default/debug/spectrum_analyzer_main.o
+ .debug_info      0x00040d        0x816 build/default/debug/oledDisplay_API_library.o
+ .debug_info      0x000c23        0xeed build/default/debug/ADC_microphone_in.o
+ .debug_info      0x001b10        0x4ad build/default/debug/button_control_library.o
+ .debug_info      0x001fbd         0xa1 build/default/debug/asmLib_v001.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x498
@@ -316,14 +317,14 @@ __CONFIG1
  .debug_abbrev    0x0003e5         0x9f build/default/debug/button_control_library.o
  .debug_abbrev    0x000484         0x14 build/default/debug/asmLib_v001.o
 
-.debug_line       0x000000        0x57e
+.debug_line       0x000000        0x582
  *(.debug_line)
  .debug_line      0x000000         0x1a build/default/debug/autocorrelation_library.o
- .debug_line      0x00001a        0x138 build/default/debug/spectrum_analyzer_main.o
- .debug_line      0x000152        0x172 build/default/debug/oledDisplay_API_library.o
- .debug_line      0x0002c4        0x153 build/default/debug/ADC_microphone_in.o
- .debug_line      0x000417        0x11a build/default/debug/button_control_library.o
- .debug_line      0x000531         0x4d build/default/debug/asmLib_v001.o
+ .debug_line      0x00001a        0x13c build/default/debug/spectrum_analyzer_main.o
+ .debug_line      0x000156        0x172 build/default/debug/oledDisplay_API_library.o
+ .debug_line      0x0002c8        0x153 build/default/debug/ADC_microphone_in.o
+ .debug_line      0x00041b        0x11a build/default/debug/button_control_library.o
+ .debug_line      0x000535         0x4d build/default/debug/asmLib_v001.o
 
 .debug_frame      0x000000        0x2ec
  *(.debug_frame)
@@ -1009,39 +1010,42 @@ __c30_signature
  .ivt._ADC1Interrupt
                   0x00002e          0x2 build/default/debug/ADC_microphone_in.o
 
-.text             0x0002f6        0x334
- .text            0x0002f6        0x1a6 build/default/debug/oledDisplay_API_library.o
-                  0x0002f6                  _delay
-                  0x000310                  _lcd_reset
-                  0x000326                  _lcd_cmd
-                  0x00037a                  _lcd_init
-                  0x0003b6                  _display_setup
-                  0x0003d0                  _lcd_setup
-                  0x0003f6                  _lcd_setCursor
-                  0x00040c                  _lcd_printChar
-                  0x000462                  _lcd_scroll
-                  0x00046c                  _lcd_printStr
-                  0x000492                  _lcd_clear
- .text            0x00049c         0xc6 build/default/debug/ADC_microphone_in.o
-                  0x00049c                  _begin_sampling
-                  0x0004aa                  _end_sampling
-                  0x0004b8                  _get_digital_signal_data
-                  0x0004c2                  _is_sample_ready
-                  0x0004ca                  _get_sample_size
-                  0x0004d2                  _adcInit
-                  0x000528                  _putVal
-                  0x00053e                  _initBuffer
- .text            0x000562         0x74 build/default/debug/spectrum_analyzer_main.o
-                  0x000562                  _setup
-                  0x00057a                  _main
- .text            0x0005d6         0x2c build/default/debug/button_control_library.o
-                  0x0005d6                  _is_button_pressed
-                  0x0005e4                  _initPushButton
- .text            0x000602         0x28 build/default/debug/asmLib_v001.o
-                  0x000602                  _wait_100us
-                  0x000608                  _wait_1ms
-                  0x00060e                  _write_0
-                  0x00061c                  _write_1
+.const              0x82f6         0x18 load address 0x0002f6  
+ .const             0x82f6         0x18 build/default/debug/spectrum_analyzer_main.o
 
-.dinit            0x00062a          0xe
- .dinit           0x00062a          0xe data_init
+.text             0x00030e        0x33c
+ .text            0x00030e        0x1a6 build/default/debug/oledDisplay_API_library.o
+                  0x00030e                  _delay
+                  0x000328                  _lcd_reset
+                  0x00033e                  _lcd_cmd
+                  0x000392                  _lcd_init
+                  0x0003ce                  _display_setup
+                  0x0003e8                  _lcd_setup
+                  0x00040e                  _lcd_setCursor
+                  0x000424                  _lcd_printChar
+                  0x00047a                  _lcd_scroll
+                  0x000484                  _lcd_printStr
+                  0x0004aa                  _lcd_clear
+ .text            0x0004b4         0xc6 build/default/debug/ADC_microphone_in.o
+                  0x0004b4                  _begin_sampling
+                  0x0004c2                  _end_sampling
+                  0x0004d0                  _get_digital_signal_data
+                  0x0004da                  _is_sample_ready
+                  0x0004e2                  _get_sample_size
+                  0x0004ea                  _adcInit
+                  0x000540                  _putVal
+                  0x000556                  _initBuffer
+ .text            0x00057a         0x7c build/default/debug/spectrum_analyzer_main.o
+                  0x00057a                  _setup
+                  0x000592                  _main
+ .text            0x0005f6         0x2c build/default/debug/button_control_library.o
+                  0x0005f6                  _is_button_pressed
+                  0x000604                  _initPushButton
+ .text            0x000622         0x28 build/default/debug/asmLib_v001.o
+                  0x000622                  _wait_100us
+                  0x000628                  _wait_1ms
+                  0x00062e                  _write_0
+                  0x00063c                  _write_1
+
+.dinit            0x00064a          0xe
+ .dinit           0x00064a          0xe data_init

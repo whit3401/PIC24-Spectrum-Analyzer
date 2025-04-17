@@ -45,6 +45,9 @@ int main(void) {
     int firstPress = 1; // TEMP DEBUGGING VAR
     int firstUp = 0; // TEMP DEBUGGING VAR
     
+    lcd_clear();
+    lcd_printStr("Ready");
+    
     while(1){
         
         firstPress = 1;
@@ -54,7 +57,8 @@ int main(void) {
             int audioSignal = PORTAbits.RA0; // PLACEHOLDER
             if (firstPress){
                 begin_sampling();
-                lcd_printChar('0'+audioSignal);
+                lcd_clear();
+                lcd_printStr("Pressed");
                 firstPress = 0;
                 firstUp = 1;
             }
@@ -63,6 +67,7 @@ int main(void) {
         if(firstUp){
             end_sampling();
             lcd_clear();
+            lcd_printStr("Released");
             firstUp = 0;
         }
         
@@ -70,8 +75,8 @@ int main(void) {
         if(is_sample_ready()){
             // transform audio data to frequency domain
             // update display with transformed output
-            int x = 1;
-            int abc = get_digital_signal_data();
+            int x = 1; // TEMP FOR DEBUGGING
+            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
         }
             
                 
