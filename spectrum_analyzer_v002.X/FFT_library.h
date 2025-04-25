@@ -12,7 +12,8 @@
 extern "C" {
 #endif
 
-
+    void fft (float data_input [][2]); 
+    
 
 
 #ifdef	__cplusplus
