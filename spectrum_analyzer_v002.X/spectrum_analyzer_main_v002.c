@@ -58,7 +58,7 @@ int main(void) {
             if (firstPress){
                 begin_sampling();
                 lcd_clear();
-                lcd_printStr("Pressed");
+                lcd_printStr("SAMPLING...");
                 firstPress = 0;
                 firstUp = 1;
             }
@@ -67,7 +67,7 @@ int main(void) {
         if(firstUp){
             end_sampling();
             lcd_clear();
-            lcd_printStr("Released");
+            lcd_printStr("DONE");
             firstUp = 0;
         }
         

@@ -29,6 +29,7 @@
       <itemPath>button_control_library.c</itemPath>
       <itemPath>oledDisplay_API_library.c</itemPath>
       <itemPath>spectrum_analyzer_main_v002.c</itemPath>
+      <itemPath>buzzer_library.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>
@@ -42,7 +43,7 @@
         <platformTool>snap</platformTool>
         <languageToolchain>XC16</languageToolchain>
         <languageToolchainVersion>2.10</languageToolchainVersion>
-        <platform>3</platform>
+        <platform>4</platform>
       </toolsSet>
       <packs>
         <pack name="PIC24F-GA-GB_DFP" vendor="Microchip" version="1.9.336"/>
