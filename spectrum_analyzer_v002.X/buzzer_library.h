@@ -13,9 +13,6 @@ extern "C" {
 #endif
     
     void buzzer_pwm_setup(void);
-    void pwm_frequency(unsigned int freq_hz);
-    void pwm_tone(unsigned int frequency);
-
 
 #ifdef	__cplusplus
 }
