@@ -1,5 +1,5 @@
 /* 
- * File:   autocorrelation_library.h
+ * File:   ADC_microphone_library.c
  * Author: john
  *
  * Created on April 15, 2025, 9:59 PM
@@ -15,16 +15,12 @@ volatile int sampleCount = 0;
 volatile int sampleReady = 0;
 
 
-/*
- * functions needed for main algorithm:
- * possible implementation structure crudely outlined
-*/
 void begin_sampling(){
     //enable ADC interrupts
     sampleReady = 0;
     AD1CON1bits.ADON = 1;    // Turn on ADC
     _AD1IE = 1;
-    initBuffer();
+    init_buffer();
 }
 
 void end_sampling(){
@@ -37,7 +33,7 @@ void end_sampling(){
  * This array will return values between 0 and 1023, to convert to voltage, 
  * multiply by 3.3/1024 
  */
-long int* get_digital_signal_data(){
+volatile int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
 
     sampleReady = 0;
@@ -54,13 +50,11 @@ int get_sample_size(){
 }
 
 
-
-void adcInit(void){
-    //Initializes the ADC
-    CLKDIVbits.RCDIV = 0;
+//Initializes the ADC
+void adc_init(void){
     
-    TRISAbits.TRISA0 = 1;
-    AD1PCFGbits.PCFG0 = 0;   // RA0/AN0 set as analog input
+    TRISAbits.TRISA0 = 1;    // Set RA0/AN0 as input
+    AD1PCFGbits.PCFG0 = 0;   // RA0/AN0 set to analog
     AD1CON1bits.FORM = 0;    // Integer output
     AD1CON1bits.SSRC = 2;    // Timer3 ends sampling, starts conversion
     AD1CON2bits.VCFG = 0;
@@ -73,7 +67,7 @@ void adcInit(void){
     _AD1IE = 0;
     
     T3CON = 0x0010;
-    PR3 = 15624; 
+    PR3 = 39999; //set sample period to every 2.5 ms = (62.5 ns) * (PR3 + 1)
     TMR3 = 0;
     T3CONbits.TON = 1;
 }
@@ -81,17 +75,22 @@ void adcInit(void){
 void __attribute__((__interrupt__, auto_psv)) _ADC1Interrupt(void){
     //Interrupt for ADC
     IFS0bits.AD1IF = 0;
-    putVal(ADC1BUF0);
+    put_val(ADC1BUF0);
 }
 
-void putVal(int newValue){
+void put_val(int newValue){
     buffer[sampleCount++] = newValue;
 }
 
-void initBuffer(){
+//sets all buffer values to zero, and resets sampleCount
+void init_buffer(){
     for(int i = 0; i < BUFFER_SIZE; i++){
         buffer[i] = 0;
     }
     sampleCount = 0;
 }
 
+void microphone_setup(){
+    adc_init();
+    init_buffer();
+}

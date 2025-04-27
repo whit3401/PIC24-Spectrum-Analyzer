@@ -12,7 +12,7 @@
 extern "C" {
 #endif
 
-    void fft (float data_input [][2]); 
+    float fft (float data_input [][2]); 
     
 
 

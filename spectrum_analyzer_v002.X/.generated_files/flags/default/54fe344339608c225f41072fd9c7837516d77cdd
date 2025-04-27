@@ -1,5 +1,0 @@
-<<<<<<<< HEAD:spectrum_analyzer_v002.X/.generated_files/flags/default/983d23af3917b3f0d48f9c409b542c43ce85ec4
- -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"/Users/alyannamack/Downloads/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/asmLib_v001.s
-========
- -c -mcpu=$(MP_PROCESSOR_OPTION)  -omf=elf -DXPRJ_default=$(CND_CONF)    -Wa,-g,--no-relax$(MP_EXTRA_AS_POST)  -mdfp="${DFP_DIR}/xc16"/Users/ethan/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/asmLib_v001.s
->>>>>>>> f861b161dd72fc4d4f528c4a41e542523cb95e60:spectrum_analyzer_v002.X/.generated_files/flags/default/54fe344339608c225f41072fd9c7837516d77cdd

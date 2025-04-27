@@ -13,6 +13,7 @@ extern "C" {
 #endif
 
     int is_button_pressed(void);
+    void init_push_button(void);
 
 
 #ifdef	__cplusplus

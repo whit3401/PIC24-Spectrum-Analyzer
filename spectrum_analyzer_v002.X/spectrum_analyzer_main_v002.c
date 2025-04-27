@@ -1,5 +1,5 @@
 /* 
- * File:   autocorrelation_library.h
+ * File:   spectrum_analyzer_main_v002.c
  * Author: tysen
  *
  * Created on April 15, 2025, 9:47 PM
@@ -34,8 +34,9 @@ void setup(void) {
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
     lcd_setup();
-    adcInit();
-    initBuffer();
+    microphone_setup();
+    init_push_button();
+    buzzer_pwm_setup();
 }
 
 
@@ -76,7 +77,7 @@ int main(void) {
             // transform audio data to frequency domain
             // update display with transformed output
             int x = 1; // TEMP FOR DEBUGGING
-            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
+//            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
         }
             
                 
