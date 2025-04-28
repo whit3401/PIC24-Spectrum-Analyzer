@@ -75,6 +75,10 @@ int main(void) {
         
         if(is_sample_ready()){
             // transform audio data to frequency domain
+                // the audio data will need to be put into a 2D array, with the audio data in the first row
+                // and the second row will be all zeroes, later to be used for imaginary numbers.
+                // this array will then be passed as a parameter to the fft function
+            
             // update display with transformed output
             int x = 1; // TEMP FOR DEBUGGING
 //            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
