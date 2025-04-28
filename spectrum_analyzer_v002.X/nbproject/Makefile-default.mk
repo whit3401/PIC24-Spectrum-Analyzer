@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=ADC_microphone_library.c asmLib_v001.s FFT_library.c button_control_library.c oledDisplay_API_library.c spectrum_analyzer_main_v002.c buzzer_library.c
+SOURCEFILES_QUOTED_IF_SPACED=ADC_microphone_library.c asmLib_v001.s FFT_library.c button_control_library.c spectrum_analyzer_main_v002.c buzzer_library.c I2C_library.c oledDisplay_API_library.c
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ADC_microphone_library.o ${OBJECTDIR}/asmLib_v001.o ${OBJECTDIR}/FFT_library.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/spectrum_analyzer_main_v002.o ${OBJECTDIR}/buzzer_library.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/ADC_microphone_library.o.d ${OBJECTDIR}/asmLib_v001.o.d ${OBJECTDIR}/FFT_library.o.d ${OBJECTDIR}/button_control_library.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d ${OBJECTDIR}/spectrum_analyzer_main_v002.o.d ${OBJECTDIR}/buzzer_library.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/ADC_microphone_library.o ${OBJECTDIR}/asmLib_v001.o ${OBJECTDIR}/FFT_library.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/spectrum_analyzer_main_v002.o ${OBJECTDIR}/buzzer_library.o ${OBJECTDIR}/I2C_library.o ${OBJECTDIR}/oledDisplay_API_library.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/ADC_microphone_library.o.d ${OBJECTDIR}/asmLib_v001.o.d ${OBJECTDIR}/FFT_library.o.d ${OBJECTDIR}/button_control_library.o.d ${OBJECTDIR}/spectrum_analyzer_main_v002.o.d ${OBJECTDIR}/buzzer_library.o.d ${OBJECTDIR}/I2C_library.o.d ${OBJECTDIR}/oledDisplay_API_library.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/ADC_microphone_library.o ${OBJECTDIR}/asmLib_v001.o ${OBJECTDIR}/FFT_library.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/oledDisplay_API_library.o ${OBJECTDIR}/spectrum_analyzer_main_v002.o ${OBJECTDIR}/buzzer_library.o
+OBJECTFILES=${OBJECTDIR}/ADC_microphone_library.o ${OBJECTDIR}/asmLib_v001.o ${OBJECTDIR}/FFT_library.o ${OBJECTDIR}/button_control_library.o ${OBJECTDIR}/spectrum_analyzer_main_v002.o ${OBJECTDIR}/buzzer_library.o ${OBJECTDIR}/I2C_library.o ${OBJECTDIR}/oledDisplay_API_library.o
 
 # Source Files
-SOURCEFILES=ADC_microphone_library.c asmLib_v001.s FFT_library.c button_control_library.c oledDisplay_API_library.c spectrum_analyzer_main_v002.c buzzer_library.c
+SOURCEFILES=ADC_microphone_library.c asmLib_v001.s FFT_library.c button_control_library.c spectrum_analyzer_main_v002.c buzzer_library.c I2C_library.c oledDisplay_API_library.c
 
 
 
@@ -107,12 +107,6 @@ ${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_file
 	@${RM} ${OBJECTDIR}/button_control_library.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/f6ac4ed8c8a9c65ca51b4464762f65d0581dd292 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/spectrum_analyzer_main_v002.o: spectrum_analyzer_main_v002.c  .generated_files/flags/default/f7eeeb83d937b6629ce3ab2cf8cb18f0cb8885fb .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spectrum_analyzer_main_v002.o.d 
@@ -124,6 +118,18 @@ ${OBJECTDIR}/buzzer_library.o: buzzer_library.c  .generated_files/flags/default/
 	@${RM} ${OBJECTDIR}/buzzer_library.o.d 
 	@${RM} ${OBJECTDIR}/buzzer_library.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  buzzer_library.c  -o ${OBJECTDIR}/buzzer_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/buzzer_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/I2C_library.o: I2C_library.c  .generated_files/flags/default/eb86840d5ae4f78dd08c41d025b467c02b482968 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/I2C_library.o.d 
+	@${RM} ${OBJECTDIR}/I2C_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  I2C_library.c  -o ${OBJECTDIR}/I2C_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/I2C_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/f6ac4ed8c8a9c65ca51b4464762f65d0581dd292 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
+	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"      -g -D__DEBUG -D__MPLAB_DEBUGGER_SIMULATOR=1    -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 else
 ${OBJECTDIR}/ADC_microphone_library.o: ADC_microphone_library.c  .generated_files/flags/default/321a89e05597255dbccdfebb988be34d2e0e6b59 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
@@ -144,12 +150,6 @@ ${OBJECTDIR}/button_control_library.o: button_control_library.c  .generated_file
 	@${RM} ${OBJECTDIR}/button_control_library.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  button_control_library.c  -o ${OBJECTDIR}/button_control_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/button_control_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
-${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/f209e767de8db3fbb9c5b94057921b6de70317a6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
-	@${MKDIR} "${OBJECTDIR}" 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
-	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
-	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
-	
 ${OBJECTDIR}/spectrum_analyzer_main_v002.o: spectrum_analyzer_main_v002.c  .generated_files/flags/default/cff31bac279e1541ec941b3c91526b13127c9ab3 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
 	@${MKDIR} "${OBJECTDIR}" 
 	@${RM} ${OBJECTDIR}/spectrum_analyzer_main_v002.o.d 
@@ -161,6 +161,18 @@ ${OBJECTDIR}/buzzer_library.o: buzzer_library.c  .generated_files/flags/default/
 	@${RM} ${OBJECTDIR}/buzzer_library.o.d 
 	@${RM} ${OBJECTDIR}/buzzer_library.o 
 	${MP_CC} $(MP_EXTRA_CC_PRE)  buzzer_library.c  -o ${OBJECTDIR}/buzzer_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/buzzer_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/I2C_library.o: I2C_library.c  .generated_files/flags/default/6ebe1b91775bd28397f360c9498eac4d5f8c1f42 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/I2C_library.o.d 
+	@${RM} ${OBJECTDIR}/I2C_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  I2C_library.c  -o ${OBJECTDIR}/I2C_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/I2C_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
+	
+${OBJECTDIR}/oledDisplay_API_library.o: oledDisplay_API_library.c  .generated_files/flags/default/f209e767de8db3fbb9c5b94057921b6de70317a6 .generated_files/flags/default/da39a3ee5e6b4b0d3255bfef95601890afd80709
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o.d 
+	@${RM} ${OBJECTDIR}/oledDisplay_API_library.o 
+	${MP_CC} $(MP_EXTRA_CC_PRE)  oledDisplay_API_library.c  -o ${OBJECTDIR}/oledDisplay_API_library.o  -c -mcpu=$(MP_PROCESSOR_OPTION)  -MP -MMD -MF "${OBJECTDIR}/oledDisplay_API_library.o.d"        -g -omf=elf -DXPRJ_default=$(CND_CONF)    $(COMPARISON_BUILD)  -O0 -msmart-io=1 -Wall -msfr-warn=off    -mdfp="${DFP_DIR}/xc16"
 	
 endif
 
