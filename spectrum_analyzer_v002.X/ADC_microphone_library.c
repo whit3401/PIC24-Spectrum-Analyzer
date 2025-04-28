@@ -8,7 +8,7 @@
 #include "xc.h"
 #include "ADC_microphone_library.h"
 
-#define BUFFER_SIZE 2048
+#define BUFFER_SIZE 500
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
 volatile int buffer[BUFFER_SIZE];
 volatile int sampleCount = 0; 
@@ -66,8 +66,8 @@ void adc_init(void){
     _AD1IF = 0;
     _AD1IE = 0;
     
-    T3CON = 0x0010;
-    PR3 = 39999; //set sample period to every 2.5 ms = (62.5 ns) * (PR3 + 1)
+    T3CON = 0x0001;
+    PR3 = 9999; 
     TMR3 = 0;
     T3CONbits.TON = 1;
 }
