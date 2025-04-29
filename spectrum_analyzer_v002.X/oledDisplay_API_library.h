@@ -37,6 +37,9 @@ typedef struct _Current_Font_s
 #define RIGHT                 254
 #define CENTER                255
 
+#define TRUE 1
+#define FALSE 0
+
 #define BLACK                 0
 #define WHITE                 1
 #define INVERSE               2
@@ -125,7 +128,7 @@ void OLED_Triangle( int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, 
 void OLED_Circle( int16_t x_center, int16_t y_center, int16_t radius, uint8_t color);
 void OLED_Image( const uint8_t *image );
 void OLED_Write( int16_t x, int16_t y, char value );
-void OLED_Write_Text( int16_t x, int16_t y, char *text);
+void OLED_Write_Text( int16_t x, int16_t y, char *text, uint8_t length);
 
 
 #ifdef	__cplusplus

@@ -7,7 +7,7 @@
 
 #include "xc.h"
 #include "asmLib_v001.h"
-#include "oledDisplay_API_library.h"
+#include "I2C_library.h"
 
 
 /*
@@ -18,7 +18,7 @@
 */
 
 
-void delay(int delay_in_ms) {
+void delay_ms(int delay_in_ms) {
     for (int i = 0; i < delay_in_ms; i++) {
         wait_1ms();
     }
@@ -26,11 +26,11 @@ void delay(int delay_in_ms) {
 
 
 void lcd_reset(void) {
-    delay(1);
+    delay_ms(1);
     LATBbits.LATB6 = 0; //set RB6 low, reset display
-    delay(1);
+    delay_ms(1);
     LATBbits.LATB6 = 1; //set RB6 high, !reset pin is high
-    delay(1);
+    delay_ms(1);
 }
 
 void lcd_cmd(char command) {
@@ -62,6 +62,7 @@ void lcd_cmd(char command) {
 }
 
 void lcd_init(int LCDcontrast) {
+    i2c_setup();
     lcd_reset();
     
     lcd_cmd(0x3A); //8 bit bus, RE=1, REV=0
@@ -75,10 +76,12 @@ void lcd_init(int LCDcontrast) {
     lcd_cmd(0x70 | LCDcontrast); //set contrast from parameter
     lcd_cmd(0x38); //8 bit bus, RE=0, IS=0
     lcd_cmd(0x0C); //display on, cursor off, blink off
+    
+    lcd_display_setup();
 }
 
 // Configure display for double height text
-void display_setup() {
+void lcd_display_setup() {
     /* Function set (RE=1 version) */
     lcd_cmd(0x3a); /* DL, N, ~BE, enter extended mode RE=1, ~REV */ 
     /* Extended function set (assumes RE=1) */
@@ -103,8 +106,6 @@ void i2c_setup(void){
     TRISB |= 0x0003; //set port B inputs
     TRISB &= 0xfc9f; //set port B outputs
     
-    lcd_init(0xA);
-    display_setup();
 }
 
 void lcd_setCursor(char x, char y) {
@@ -153,4 +154,26 @@ void lcd_printStr(const char *str) {
 
 void lcd_clear(){
     lcd_cmd(0x01); //clear display
+}
+
+void I2C_Start(){
+  _MI2C1IF = 0; //reset I2C flag
+    
+  LATBbits.LATB5 = 1; //set RB5 high, heartbeat led on
+    
+  I2C1CONbits.SEN = 1; //send start command
+  while (I2C1CONbits.SEN == 1); //wait for start to finish
+}
+
+void I2C_Send(uint8_t message){
+  _MI2C1IF = 0;
+  I2C1TRN = message; //transmit message
+  while (_MI2C1IF == 0); //wait for ACK
+}
+
+void I2C_Stop(){
+  I2C1CONbits.PEN = 1; //send stop command
+  while (I2C1CONbits.PEN == 1); //wait for stop to finish
+    
+  LATBbits.LATB5 = 0; //set RB5 low, heartbeat led off
 }
