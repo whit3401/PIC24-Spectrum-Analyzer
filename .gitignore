@@ -13,6 +13,11 @@
 *.properties
 *.production
 *.debug
+*.log
+*.yml
+*.mc3
+*/queuelogs/
+*/debug/
 */html/
 */nbproject/private/
 */nbproject/Package-*.bash
