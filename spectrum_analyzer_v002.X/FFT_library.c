@@ -1,36 +1,36 @@
-/* 
- * File:   FFT_library.c
- * Author: ethan
- *
- * Created on April 24, 2025, 11:19 AM
- */
-
-// Template followed for this implementation:
-// https://www.youtube.com/watch?v=I5N8ZzPSO4s 
-
-
-#include "xc.h"
-#include "FFT_library.h"
-
-#define pi 3.14159265358979
-#define e 2.718281828459
-#define BUFFER_SIZE 2048 
-
-// might need these, not sure yet: 
-// frequency
-// int w = (2*pi)/SAMPLE_INTERVAL; 
-// int k = 0; 
-
-
-// even and odd data output arrays
+///* 
+// * File:   FFT_library.c
+// * Author: ethan
+// *
+// * Created on April 24, 2025, 11:19 AM
+// */
+//
+//// Template followed for this implementation:
+//// https://www.youtube.com/watch?v=I5N8ZzPSO4s 
+//
+//
+//#include "xc.h"
+//#include "FFT_library.h"
+//
+//#define pi 3.14159265358979
+//#define e 2.718281828459
+//#define BUFFER_SIZE 2048 
+//
+//// might need these, not sure yet: 
+//// frequency
+//// int w = (2*pi)/SAMPLE_INTERVAL; 
+//// int k = 0; 
+//
+//
+//// even and odd data output arrays
 //float data_even [BUFFER_SIZE/2][2]; 
 //float data_odd [BUFFER_SIZE/2][2]; //ERROR TOO MUCH MEMORY
 //float fft_output [BUFFER_SIZE/2][2]; 
-
-// this parameter will be the data intake given by john's ADC
+//
+//// this parameter will be the data intake given by john's ADC
 //float fft (float data_input [][2])
 //{
-//    // INFO:
+//    //INFO:
 //    // the second array dimension (2) helps us to represent the real and imaginary parts of the data
 //    // data [][0] contains the real part
 //    // data [][1] contains the imaginary part
@@ -49,7 +49,6 @@
 //        
 //        // recursively treat the even and odd indexed input arrays as BUFFER_SIZE/2 DFT's
 //        // FIX ME: fill in the code for this
-//        
 //        
 //        // Once even and odd DFT's are done calculating and have been returned, do the FFT math
 //        // X(k) = even(k) + W(N/BUFFER_SIZE*k%N) * odd(k)
