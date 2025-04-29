@@ -5,7 +5,6 @@
         <group>
             <file>file:/Users/ethan/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/spectrum_analyzer_main_v002.c</file>
             <file>file:/Users/ethan/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/ADC_microphone_library.c</file>
-            <file>file:/Users/ethan/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/FFT_library.h</file>
             <file>file:/Users/ethan/PIC24-Spectrum-Analyzer-EE2361-Final-Project/spectrum_analyzer_v002.X/FFT_library.c</file>
         </group>
     </open-files>
