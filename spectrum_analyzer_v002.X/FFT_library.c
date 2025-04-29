@@ -14,7 +14,7 @@
 
 #define pi 3.14159265358979
 #define e 2.718281828459
-#define BUFFER_SIZE 2048 
+#define BUFFER_SIZE 500 
 
 // might need these, not sure yet: 
 // frequency
@@ -22,10 +22,12 @@
 // int k = 0; 
 
 
-// even and odd data output arrays
+// even, odd, and  data output arrays
 float data_even [BUFFER_SIZE/2][2]; 
-float data_odd [BUFFER_SIZE/2][2]; //ERROR TOO MUCH MEMORY
-float fft_output [BUFFER_SIZE/2][2]; 
+float data_odd [BUFFER_SIZE/2][2];
+
+// 2D for real and imaginary parts
+float fundamental [1][1];  
 
 // this parameter will be the data intake given by john's ADC
 float fft (float data_input [][2])
@@ -67,12 +69,31 @@ float fft (float data_input [][2])
             float WxOdd [2]; 
             // WxOdd[0] = 
             // WxOdd[1] = 
-            fft_output [k][0] = data_even [k][0] + WxOdd [0]; 
-            fft_output [k][1] = data_even [k][1] + WxOdd [1]; 
-            fft_output [k+BUFFER_SIZE/2][0] = data_even [k][0] - WxOdd [0]; 
-            fft_output [k+BUFFER_SIZE/2][1] = data_even [k][1] - WxOdd [1]; 
+            buffer [k][0] = data_even [k][0] + WxOdd [0]; 
+            buffer [k][1] = data_even [k][1] + WxOdd [1]; 
+            buffer [k+BUFFER_SIZE/2][0] = data_even [k][0] - WxOdd [0]; 
+            buffer [k+BUFFER_SIZE/2][1] = data_even [k][1] - WxOdd [1]; 
         }
     }
     
-    return fft_output; 
+    return buffer; 
+}
+
+
+// finds the fundamental frequency of the fft data
+// must be performed AFTER the fft function
+void find_fundamental ()
+{
+    for (int i = 0; i < BUFFER_SIZE; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if (buffer [i][j] > fundamental)
+            {
+                // copying both the real and imaginary parts to the fundamental array
+                fundamental [i]= buffer [i];
+                fundamental [i][j] = buffer [i][j]; 
+            }
+        }
+    }
 }

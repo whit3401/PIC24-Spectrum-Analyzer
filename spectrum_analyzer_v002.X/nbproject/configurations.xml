@@ -10,6 +10,7 @@
       <itemPath>FFT_library.h</itemPath>
       <itemPath>oledDisplay_API_library.h</itemPath>
       <itemPath>buzzer_library.h</itemPath>
+      <itemPath>I2C_library.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -28,9 +29,10 @@
       <itemPath>asmLib_v001.s</itemPath>
       <itemPath>FFT_library.c</itemPath>
       <itemPath>button_control_library.c</itemPath>
-      <itemPath>oledDisplay_API_library.c</itemPath>
       <itemPath>spectrum_analyzer_main_v002.c</itemPath>
       <itemPath>buzzer_library.c</itemPath>
+      <itemPath>I2C_library.c</itemPath>
+      <itemPath>oledDisplay_API_library.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>

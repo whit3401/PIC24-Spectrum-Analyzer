@@ -8,9 +8,9 @@
 #include "xc.h"
 #include "ADC_microphone_library.h"
 
-#define BUFFER_SIZE 500
+#define BUFFER_SIZE 500 // buffer size changed from 2048 to 500 to accoodate PIC24's memory space
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
-volatile int buffer[BUFFER_SIZE];
+volatile float buffer[BUFFER_SIZE][2];
 volatile int sampleCount = 0; 
 volatile int sampleReady = 0;
 
@@ -33,7 +33,9 @@ void end_sampling(){
  * This array will return values between 0 and 1023, to convert to voltage, 
  * multiply by 3.3/1024 
  */
-volatile int* get_digital_signal_data(){
+    //ERROR:  !! THIS NEEDS TO BE CHANGED TO ACCOMODATE NEW BUFFER SIZE ^^ !!
+
+volatile float* get_digital_signal_data(){
     //return array of data samples ordered chronologically
 
     sampleReady = 0;
@@ -78,14 +80,15 @@ void __attribute__((__interrupt__, auto_psv)) _ADC1Interrupt(void){
     put_val(ADC1BUF0);
 }
 
-void put_val(int newValue){
-    buffer[sampleCount++] = newValue;
+void put_val(float newValue){
+    buffer[sampleCount++][0] = newValue;
 }
 
 //sets all buffer values to zero, and resets sampleCount
 void init_buffer(){
     for(int i = 0; i < BUFFER_SIZE; i++){
-        buffer[i] = 0;
+        buffer[i][0] = 0;
+        buffer[i][1] = 0;
     }
     sampleCount = 0;
 }
