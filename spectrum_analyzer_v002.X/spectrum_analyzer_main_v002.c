@@ -33,7 +33,7 @@ void setup(void) {
     CLKDIVbits.RCDIV=0; // Fcy 16 MHz
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
-    lcd_setup();
+    i2c_setup();
     microphone_setup();
     init_push_button();
     buzzer_pwm_setup();
