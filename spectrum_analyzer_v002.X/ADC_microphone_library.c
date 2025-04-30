@@ -12,7 +12,7 @@
 
 #define ARRAY_SIZE 800 // array size changed from 2048 to 800 to accoodate PIC24's memory space
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
-volatile float adcVals[ARRAY_SIZE][2];
+volatile int adcVals[ARRAY_SIZE];
 volatile int sampleCount = 0; 
 volatile int sampleReady = 0;
 
@@ -40,7 +40,7 @@ void end_sampling(){
  */
     //ERROR:  !! THIS NEEDS TO BE CHANGED TO ACCOMODATE NEW ARRAY SIZE ^^ !!
 
-volatile float* get_digital_signal_data(){
+volatile int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
 
     sampleReady = 0;
@@ -102,15 +102,15 @@ void __attribute__((__interrupt__, auto_psv)) _ADC1Interrupt(void){
     put_val(ADC1BUF0);
 }
 
-void put_val(float newValue){
-    adcVals[sampleCount++][0] = newValue;
+void put_val(int newValue){
+    adcVals[sampleCount++] = newValue;
 }
 
 //sets all array values to zero, and resets sampleCount
 void init_arr(){
     for(int i = 0; i < ARRAY_SIZE; i++){
-        adcVals[i][0] = 0;
-        adcVals[i][1] = 0;
+        adcVals[i] = 0;
+        adcVals[i] = 0;
     }
     sampleCount = 0;
 }
