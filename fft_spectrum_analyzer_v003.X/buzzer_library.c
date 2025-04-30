@@ -26,7 +26,7 @@ void buzzer_pwm_setup(void){
     TMR2 = 0;        // initialize to 0: Timer 3
     PR2 = 999; // random initial period
     T2CONbits.TON = 0;
-    
+      
     // set OC1 for servo PWM (1-2ms pulse in 20ms frame)
     
     OC1CON = 0;
@@ -38,7 +38,7 @@ void buzzer_pwm_setup(void){
 
 void buzz(unsigned int freq) {
     
-    unsigned int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
+    unsigned int period = 16944000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
@@ -55,8 +55,7 @@ void buzz(unsigned int freq) {
         period /= 8;
     }
     
-//    PR2 = period - 1;
-    PR2 = 36363;
+    PR2 = period - 1;
     
     T2CONbits.TON = 1;
 }

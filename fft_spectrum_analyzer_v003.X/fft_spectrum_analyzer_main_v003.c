@@ -81,7 +81,7 @@ int main(void) {
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();
     
-    buzz(0);
+    buzz(523);
     
     while(1){
         
