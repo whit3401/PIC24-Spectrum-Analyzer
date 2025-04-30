@@ -12,7 +12,10 @@
 extern "C" {
 #endif
 
-    float fft (float data_input [][2]); 
+    float magnitude(float real, float imag); 
+    void fft(float data[][2], int size);
+    void perform_fft(float adcVals[]);
+    void find_fundamental(float adcVals[], int *fundamental); 
     
 
 
