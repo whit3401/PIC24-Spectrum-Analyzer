@@ -14,8 +14,6 @@
 *.production
 *.debug
 *.log
-*.yml
-*.mc3
 */queuelogs/
 */debug/
 */html/
