@@ -97,14 +97,15 @@ void perform_fft(float adcVals[ARRAY_SIZE])
 }
 
 // Function to find the fundamental frequency
-void find_fundamental(float adcVals[ARRAY_SIZE], int *fundamental) {
-    *fundamental = 0;
+int find_fundamental(float adcVals[ARRAY_SIZE]) {
+    int fundamental = 0;
     
     for (int i = 1; i < ARRAY_SIZE; i++) 
     {
-        if (adcVals[i] > adcVals[*fundamental]) 
+        if (adcVals[i] > fundamental) 
         {
-            *fundamental = i;
+            fundamental = i; // possibly multiply by 4 for bin width of 4 Hz
         }
     }
+    return fundamental; 
 }

@@ -30,6 +30,7 @@
                                        // Fail-Safe Clock Monitor is enabled)
 #pragma config FNOSC = FRCPLL      // Oscillator Select (Fast RC Oscillator with PLL module (FRCPLL))
 
+#define ARRAY_SIZE 600
 
 void setup(void) {
     CLKDIVbits.RCDIV=0; // Fcy 16 MHz
@@ -85,6 +86,7 @@ int main(void) {
         
         
         if(is_sample_ready()){
+            
             // transform audio data to frequency domain
                 // the audio data will need to be put into a 2D array, with the audio data in the first row
                 // and the second row will be all zeroes, later to be used for imaginary numbers.

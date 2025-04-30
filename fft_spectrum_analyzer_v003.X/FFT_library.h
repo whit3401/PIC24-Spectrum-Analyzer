@@ -13,7 +13,7 @@ extern "C" {
 #endif
 
     void fft (float data_input [][2], int size); 
-    void find_fundamental(float adcVals[], int *fundamental); 
+    int find_fundamental(float adcVals[]); 
     void perform_fft(float adcVals[]); 
     float magnitude(float real, float imag);
     
