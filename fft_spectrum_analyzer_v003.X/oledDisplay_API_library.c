@@ -525,7 +525,7 @@ void OLED_SetContrast( uint8_t contrast )
  */
 void OLED_ClearDisplay( void )
 {
-//  memset(buffer, 0, (SSD1306_LCDWIDTH*SSD1306_LCDHEIGHT/8)); #TODO IMPLEMENT MEMSET FUNCTION
+    OLED_FillRectangle(0, 63, 127, 0, 0);
 }
 
 /**
@@ -535,7 +535,7 @@ void OLED_ClearDisplay( void )
  */
 void OLED_FillDisplay( void )
 {
-//  memset(buffer, 0xFF, (SSD1306_LCDWIDTH*SSD1306_LCDHEIGHT/8)); #TODO IMPLEMENT MEMSET FUNCTION
+    OLED_FillRectangle(0, 63, 127, 0, 1);
 }
 
 /**
@@ -1020,7 +1020,20 @@ static void swap_num( uint16_t *a, uint16_t *b )
  *
  * @param *a: 
  */
-//void write_fft()
-//{
-//    
-//}
+void OLED_WriteFFT(int data[128])
+{   
+    for (int i = 0; i < 128; i++){
+        OLED_V_Line(63 - data[i], 63, i, 1);
+    }
+}
+
+/**
+ * @brief fit frequency array to screen dimensions
+ * 
+ * resizes an array of frequency magnitudes to a length of 128, with logarithmic bin widths
+ *
+ * @param inputArray[]: an array of size 600 with a linear bin width of 4
+ */
+int* resize_freq_array(int inputArray[]){
+    return 0;
+}

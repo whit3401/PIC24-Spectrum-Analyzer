@@ -55,7 +55,29 @@ int main(void) {
     OLED_SetContrast(0xFF);
     OLED_DrawPixel(64, 32, 1);
     OLED_V_Line( 2, 40, 5, 1);
-    OLED_InvertDisplay(1);
+//    OLED_InvertDisplay(1);
+    OLED_ClearDisplay();
+    
+    int sample_freq_array[] = {
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 40, 0, 0, 0, 4, 0,
+        30, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 23, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 2, 0, 0, 0, 60, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 37, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0
+    };
+    
+    OLED_WriteFFT(sample_freq_array);
     OLED_Update();
     
     buzz(0);
