@@ -10,7 +10,7 @@
 #include "xc.h"
 #include "ADC_microphone_library.h"
 
-#define ARRAY_SIZE 800 // array size changed from 2048 to 800 to accoodate PIC24's memory space
+#define ARRAY_SIZE 600 // array size changed from 2048 to 800 to accoodate PIC24's memory space
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
 
 volatile int adcVals[ARRAY_SIZE];

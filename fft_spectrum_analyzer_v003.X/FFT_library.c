@@ -13,7 +13,7 @@
 #include <string.h>
 
 #define PI 3.14159265358979
-#define ARRAY_SIZE 800
+#define ARRAY_SIZE 600
 
 // Global arrays for even and odd data
 float data_even[ARRAY_SIZE/2][2];
