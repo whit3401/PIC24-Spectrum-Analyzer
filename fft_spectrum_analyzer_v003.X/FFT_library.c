@@ -10,7 +10,7 @@
 
 #include "FFT_library.h"
 #include <math.h>
-#include <string.h>
+#include <stdio.h>
 
 #define PI 3.14159265358979
 #define ARRAY_SIZE 600

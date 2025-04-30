@@ -57,6 +57,15 @@ int get_sample_size(){
     return sampleCount;
 }
 
+void timer1_init(void){
+    T1CON = 0x0000;
+    T1CONbits.TCKPS = 0b10;
+    TMR1 = 0;
+    PR1 = 62499;
+    _T1IF = 0;
+    _T1IE = 1;
+    T1CONbits.TON = 0;
+}
 
 //Initializes the ADC
 void adc_init(void){
@@ -79,16 +88,6 @@ void adc_init(void){
     PR3 = 4999; //0.25 seconds sample time, 3200 samples per second (3.2KHz)
     TMR3 = 0;
     T3CONbits.TON = 1;
-}
-
-void timer1_init(void){
-    T1CON = 0x0000;
-    T1CONbits.TCKPS = 0b10;
-    TMR1 = 0;
-    PR1 = 62499;
-    _T1IF = 0;
-    _T1IE = 1;
-    T1CONbits.TON = 0;
 }
 
 void __attribute__((__interrupt__, auto_psv)) _T1Interrupt(void){
