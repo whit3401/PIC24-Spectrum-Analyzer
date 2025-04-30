@@ -22,28 +22,47 @@ void buzzer_pwm_setup(void){
     
     // Configure Timer 2
     T2CON = 0;  //Stop and reset timer configuration
-    T2CONbits.TCKPS = 0b00; //sets prescaler to 1:8
+    T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     TMR2 = 0;        // initialize to 0: Timer 3
     PR2 = 999; // random initial period
     T2CONbits.TON = 0;
     
     // set OC1 for servo PWM (1-2ms pulse in 20ms frame)
     
+    OC1CON = 0;
     OC1R = PR2/2; //Set 50% Duty Cycle
     OC1RS = PR2/2; // Update shadow register as well
     OC1CONbits.OCM = 0b110; // PWM mode, fault pin disabled
     OC1CONbits.OCTSEL = 0; // set Timer 2 as clock source
-    OC1CON = 0;
 }
 
 void buzz(int freq) {
-    freq = 440; //placeholder 
-    int period = 1/freq; //placeholder
-    PR2 = (int)period - 1;
+    
+    int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
+    
+    T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
+    
+    if (period > 4000000) {
+        T2CONbits.TCKPS = 0b11; //sets prescaler to 1:256
+        period /= 256;
+    }
+    else if (period > 500000) {
+        T2CONbits.TCKPS = 0b10; //sets prescaler to 1:64
+        period /= 64;
+    }
+    else if (period > 62500) {
+        T2CONbits.TCKPS = 0b01; //sets prescaler to 1:8
+        period /= 8;
+    }
+    
+    PR2 = period - 1;
+    
+    T2CONbits.TON = 1;
     OC1CON = 1; 
 }
 
 void stop_buzz(void){
+    T2CONbits.TON = 0;
     OC1CON = 0;
 }
 

@@ -57,6 +57,8 @@ int main(void) {
     OLED_InvertDisplay(1);
     OLED_Update();
     
+    buzz(0);
+    
     while(1){
         
         firstPress = 1;
