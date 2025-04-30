@@ -35,6 +35,7 @@ void setup(void) {
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
     microphone_setup();
+    i2c_setup();
     lcd_init(0xA);
     OLED_Init();
     init_push_button();
@@ -50,6 +51,11 @@ int main(void) {
     
     lcd_clear();
     lcd_printStr("Ready");
+    OLED_SetContrast(0xFF);
+    OLED_DrawPixel(64, 32, 1);
+    OLED_V_Line( 2, 40, 5, 1);
+    OLED_InvertDisplay(1);
+    OLED_Update();
     
     while(1){
         
