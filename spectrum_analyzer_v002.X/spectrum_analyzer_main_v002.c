@@ -11,6 +11,7 @@
 #include "oledDisplay_API_library.h"
 #include "asmLib_v001.h"
 #include "button_control_library.h"
+#include "buzzer_library.h"
 
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
 #pragma config ICS = PGx1          // Comm Channel Select (Emulator EMUC1/EMUD1 pins are shared with PGC1/PGD1)
