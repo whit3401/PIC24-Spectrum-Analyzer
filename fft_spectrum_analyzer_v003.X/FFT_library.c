@@ -1,99 +1,89 @@
-///* 
-// * File:   FFT_library.c
-// * Author: ethan
-// *
-// * Created on April 24, 2025, 11:19 AM
-// */
-//
-//// Template followed for this implementation:
-//// https://www.youtube.com/watch?v=I5N8ZzPSO4s 
-//
-//
-//#include "xc.h"
-//#include "FFT_library.h"
-//
-//#define pi 3.14159265358979
-//#define e 2.718281828459
-//#define BUFFER_SIZE 500 
-//
-//// might need these, not sure yet: 
-//// frequency
-//// int w = (2*pi)/SAMPLE_INTERVAL; 
-//// int k = 0; 
-//
-//
-//// even, odd, and  data output arrays
-//float data_even [BUFFER_SIZE/2][2]; 
-//float data_odd [BUFFER_SIZE/2][2];
-//
-//// 2D for real and imaginary parts
-//float fundamental [1][1];  
-//
-//// this parameter will be the data intake given by john's ADC
-//float fft (float data_input [][2])
-//{
-//    //INFO:
-//    // the second array dimension (2) helps us to represent the real and imaginary parts of the data
-//    // data [][0] contains the real part
-//    // data [][1] contains the imaginary part
-//    
-//    // do the N<=2 check here
-//    
-//    // fill in the even and odd arrays from the input array
-//    for (int r = 0; r < BUFFER_SIZE/2; r++)
-//    {
-//        // we will only fill in the real part at this time, since we only received real input data
-//        // hence, the imaginary part (data[][1]) will be all zeroes
-//        data_even [r][0] = data_input [2*r][0];
-//        data_even [r][1] = 0.0; 
-//        data_odd [r][0] = data_input [2r+1][0]; 
-//        data_odd [r][1] = data_input [2r+1][1]; 
-//        
-//        // recursively treat the even and odd indexed input arrays as BUFFER_SIZE/2 DFT's
-//        // FIX ME: fill in the code for this
-//        
-//        // Once even and odd DFT's are done calculating and have been returned, do the FFT math
-//        // X(k) = even(k) + W(N/BUFFER_SIZE*k%N) * odd(k)
-//        
-//        // k is each frequency in the frequency range
-//        // only need to iterate BUFFER_SIZE/2 amount of times since the lower half will be the same
-//        // as the upper half
-//        for (int k = 0; k < BUFFER_SIZE/2; k++)
-//        {
-//            // index for the W vector being multiplied with the odd array
-//            
-//            // FIX ME: uncomment this when actually coding (commented just for push)
-//            // int W_index = N/BUFFER_SIZE*k; 
-//            
-//            // array for holding multiplication output of W vector and odd array
-//            float WxOdd [2]; 
-//            // WxOdd[0] = 
-//            // WxOdd[1] = 
-//            buffer [k][0] = data_even [k][0] + WxOdd [0]; 
-//            buffer [k][1] = data_even [k][1] + WxOdd [1]; 
-//            buffer [k+BUFFER_SIZE/2][0] = data_even [k][0] - WxOdd [0]; 
-//            buffer [k+BUFFER_SIZE/2][1] = data_even [k][1] - WxOdd [1]; 
-//        }
-//    }
-//    
-//    return buffer; 
-//}
-//
-//
-//// finds the fundamental frequency of the fft data
-//// must be performed AFTER the fft function
-//void find_fundamental ()
-//{
-//    for (int i = 0; i < BUFFER_SIZE; i++)
-//    {
-//        for (int j = 0; j < 2; j++)
-//        {
-//            if (buffer [i][j] > fundamental)
-//            {
-//                // copying both the real and imaginary parts to the fundamental array
-//                fundamental [i]= buffer [i];
-//                fundamental [i][j] = buffer [i][j]; 
-//            }
-//        }
-//    }
-//}
+#include "FFT_library.h"
+#include <math.h>
+#include <string.h>
+
+#define PI 3.14159265358979
+#define ARRAY_SIZE 800
+
+// Global arrays for even and odd data
+float data_even[ARRAY_SIZE/2][2];
+float data_odd[ARRAY_SIZE/2][2];
+
+// Function to calculate the magnitude of a complex number
+float magnitude(float real, float imag) {
+    return sqrt(real * real + imag * imag);
+}
+
+// Function to perform the FFT
+void fft(float data[ARRAY_SIZE][2], int size) {
+    if (size <= 2) {
+        // BASE CASE
+        // Perform the basic size 2 DFT butterfly
+        float d0_real = data[0][0];
+        float d0_imag = data[0][1];
+        float d1_real = data[1][0];
+        float d1_imag = data[1][1];
+        
+        data[0][0] = d0_real + d1_real;
+        data[0][1] = d0_imag + d1_imag;
+        data[1][0] = d0_real - d1_real;
+        data[1][1] = d0_imag - d1_imag;
+        return;
+    }
+
+    // Split the data into even and odd indexed elements
+    for (int i = 0; i < size / 2; i++) {
+        data_even[i][0] = data[2 * i][0];
+        data_even[i][1] = data[2 * i][1];
+        data_odd[i][0] = data[2 * i + 1][0];
+        data_odd[i][1] = data[2 * i + 1][1];
+    }
+
+    // Recursively perform the FFT on the even and odd parts
+    fft(data_even, size / 2);
+    fft(data_odd, size / 2);
+
+    // Combine the results
+    for (int k = 0; k < size / 2; k++) {
+        float W_real = cos(2 * PI * k / size);
+        float W_imag = sin(2 * PI * k / size);
+
+        float temp_real = data_odd[k][0] * W_real - data_odd[k][1] * W_imag;
+        float temp_imag = data_odd[k][0] * W_imag + data_odd[k][1] * W_real;
+
+        data[k][0] = data_even[k][0] + temp_real;
+        data[k][1] = data_even[k][1] + temp_imag;
+
+        data[k + size / 2][0] = data_even[k][0] - temp_real;
+        data[k + size / 2][1] = data_even[k][1] - temp_imag;
+    }
+}
+
+// Function to perform the FFT on the input data
+void perform_fft(float adcVals[ARRAY_SIZE]) {
+    float data[ARRAY_SIZE][2];
+
+    // Initialize the data array with real parts from adcVals and imaginary parts as 0
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        data[i][0] = adcVals[i];
+        data[i][1] = 0.0;
+    }
+
+    // Perform the FFT
+    fft(data, ARRAY_SIZE);
+
+    // Calculate the magnitude of the FFT results
+    for (int i = 0; i < ARRAY_SIZE; i++) {
+        adcVals[i] = magnitude(data[i][0], data[i][1]);
+    }
+}
+
+// Function to find the fundamental frequency
+void find_fundamental(float adcVals[ARRAY_SIZE], int *fundamental) {
+    *fundamental = 0;
+    for (int i = 1; i < ARRAY_SIZE; i++) {
+        if (adcVals[i] > adcVals[*fundamental]) {
+            *fundamental = i;
+        }
+    }
+}
