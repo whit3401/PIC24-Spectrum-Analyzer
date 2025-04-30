@@ -36,11 +36,11 @@ void buzzer_pwm_setup(void){
     OC1CON = 0;
 }
 
-void buzz(void) {
-    int freq = 440; //placeholder 
+void buzz(int freq) {
+    freq = 440; //placeholder 
     int period = 1/freq; //placeholder
+    PR2 = (int)period - 1;
     OC1CON = 1; 
-    PR2 = (int)period;
 }
 
 void stop_buzz(void){
@@ -48,7 +48,6 @@ void stop_buzz(void){
 }
 
 void setVolume(int volume){ //volume is a value 1-99
-    OC1R = PR2 * volume / 100;
     OC1RS = PR2 * volume / 100;
 }
 

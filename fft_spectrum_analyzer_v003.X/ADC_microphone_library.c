@@ -12,7 +12,6 @@
 
 #define ARRAY_SIZE 800 // array size changed from 2048 to 800 to accoodate PIC24's memory space
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
-
 volatile int adcVals[ARRAY_SIZE];
 volatile int sampleCount = 0; 
 volatile int sampleReady = 0;
@@ -120,3 +119,4 @@ void microphone_setup(){
     adc_init();
     init_arr();
 }
+
