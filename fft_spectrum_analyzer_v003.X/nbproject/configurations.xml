@@ -33,6 +33,7 @@
       <itemPath>oledDisplay_API_library.c</itemPath>
       <itemPath>fft_spectrum_analyzer_main_v003.c</itemPath>
       <itemPath>I2C_library.c</itemPath>
+      <itemPath>speaker_test_file.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

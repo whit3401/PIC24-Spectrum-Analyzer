@@ -36,9 +36,9 @@ void buzzer_pwm_setup(void){
     OC1CONbits.OCTSEL = 0; // set Timer 2 as clock source
 }
 
-void buzz(int freq) {
+void buzz(unsigned int freq) {
     
-    int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
+    unsigned int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
@@ -59,12 +59,10 @@ void buzz(int freq) {
     PR2 = 36363;
     
     T2CONbits.TON = 1;
-    OC1CON = 1; 
 }
 
 void stop_buzz(void){
     T2CONbits.TON = 0;
-    OC1CON = 0;
 }
 
 void setVolume(int volume){ //volume is a value 1-99
