@@ -70,6 +70,3 @@ void stop_buzz(void){
 void setVolume(int volume){ //volume is a value 1-99
     OC1RS = PR2 * volume / 100; 
 }
-
-
-
