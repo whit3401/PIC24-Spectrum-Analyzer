@@ -343,7 +343,7 @@ int16_t abs(int16_t value){
 }
 
 /**
- * @brief OLED_Reset
+ * @brief Hardware reset OLED display
  *
  * Reset OLED
  */
@@ -1011,3 +1011,16 @@ static void swap_num( uint16_t *a, uint16_t *b )
   *a = *b;
   *b = temp;
 }
+
+
+/**
+ * @brief display FFT graph
+ * 
+ * writes a frequency domain graph on the display given an array of 128 frequencies
+ *
+ * @param *a: 
+ */
+//void write_fft()
+//{
+//    
+//}

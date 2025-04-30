@@ -24,8 +24,8 @@ void begin_sampling(){
     init_arr();
     AD1CON1bits.ADON = 1;    // Turn on ADC
     _AD1IE = 1;
-    T1CONbits.TON = 1;
     TMR1 = 0;
+    T1CONbits.TON = 1;
 }
 
 void end_sampling(){
@@ -79,6 +79,8 @@ void adc_init(void){
     PR3 = 4999; //0.25 seconds sample time, 3200 samples per second (3.2KHz)
     TMR3 = 0;
     T3CONbits.TON = 1;
+    
+    timer1_init();
 }
 
 void timer1_init(void){

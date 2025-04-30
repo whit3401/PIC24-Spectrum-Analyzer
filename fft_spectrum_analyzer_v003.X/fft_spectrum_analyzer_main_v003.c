@@ -76,7 +76,7 @@ int main(void) {
             
         }
         if(firstUp){
-            end_sampling();
+//            end_sampling();
             lcd_clear();
             lcd_printStr("DONE");
             firstUp = 0;

@@ -55,7 +55,8 @@ void buzz(int freq) {
         period /= 8;
     }
     
-    PR2 = period - 1;
+//    PR2 = period - 1;
+    PR2 = 36363;
     
     T2CONbits.TON = 1;
     OC1CON = 1; 
