@@ -13,7 +13,7 @@ extern "C" {
 #endif
     
     void buzzer_pwm_setup(void);
-    void buzz(void);
+    void buzz(int freq);
     void stop_buzz(void);
 
 #ifdef	__cplusplus

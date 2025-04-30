@@ -18,7 +18,7 @@ void buzzer_pwm_setup(void){
     RPOR6bits.RP12R = 18;  // Use Pin RP12 for Output Compare 1 = "18" (Table 10-3)
     __builtin_write_OSCCONL(OSCCON | 0x40); // lock PPS
     
-    TRISBbits.TRISB4 = 0; // sets RB4 as output mode
+    TRISBbits.TRISB12 = 0; // sets RB12 as output mode
     
     // Configure Timer 2
     T2CON = 0;  //Stop and reset timer configuration
@@ -48,7 +48,7 @@ void stop_buzz(void){
 }
 
 void setVolume(int volume){ //volume is a value 1-99
-    OC1RS = PR2 * volume / 100;
+    OC1RS = PR2 * volume / 100; 
 }
 
 
