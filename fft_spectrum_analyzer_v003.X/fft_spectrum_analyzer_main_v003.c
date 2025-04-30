@@ -30,7 +30,7 @@
                                        // Fail-Safe Clock Monitor is enabled)
 #pragma config FNOSC = FRCPLL      // Oscillator Select (Fast RC Oscillator with PLL module (FRCPLL))
 
-#define ARRAY_SIZE 600
+#define ARRAY_SIZE 500
 
 void setup(void) {
     CLKDIVbits.RCDIV=0; // Fcy 16 MHz
