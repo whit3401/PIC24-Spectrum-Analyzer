@@ -362,7 +362,8 @@ void OLED_Reset(void) {
  */
 void OLED_Init( void )
 {
-  i2c_setup();
+  OLED_Reset();
+    
   delay_ms(100);
   ssd1306_command( SSD1306_DISPLAY_OFF);
   ssd1306_command( SSD1306_SET_DISPLAY_CLOCK_DIV_RATIO);

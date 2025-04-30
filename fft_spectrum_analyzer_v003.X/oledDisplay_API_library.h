@@ -44,8 +44,8 @@ typedef struct _Current_Font_s
 #define WHITE                 1
 #define INVERSE               2
 
-//#define SSD1306_ADDR        0x3D
-#define SSD1306_ADDR          0x3C
+#define SSD1306_ADDR        0x3D
+//#define SSD1306_ADDR          0x3C
 
 /* SSD1306 Display Type*/
 #define SSD1306_128_64

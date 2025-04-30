@@ -62,7 +62,6 @@ void lcd_cmd(char command) {
 }
 
 void lcd_init(int LCDcontrast) {
-    i2c_setup();
     lcd_reset();
     
     lcd_cmd(0x3A); //8 bit bus, RE=1, REV=0
