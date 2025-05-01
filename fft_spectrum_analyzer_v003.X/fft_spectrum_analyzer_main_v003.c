@@ -88,8 +88,8 @@ int main(void) {
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();
     
-    buzz(523); //C5
-    buzz_for_3_seconds(523); //C5
+    //buzz(523); //C5
+    // buzz_for_3_seconds(523); //C5
 
     
     while(1){
@@ -135,6 +135,8 @@ int main(void) {
             magnitude (realVals, imagVals, ARRAY_SIZE); 
                     
             int fundamental = find_fundamental ((int*)realVals);
+            
+            buzz (fundamental); 
             
         }
         int ab = 0;
