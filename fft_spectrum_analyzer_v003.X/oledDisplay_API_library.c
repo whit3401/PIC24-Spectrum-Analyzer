@@ -1097,7 +1097,7 @@ void resize_freq_array(int inputArray[], int outputArray[], int fundamental){
         weightedAvg = weightedSum / totalWeight; // compute weighted average/mean
         
         
-        if (curOutputIdx < 4){
+        if (curOutputIdx < 2){
             outputArray[curOutputIdx] = 0; //cut out frequencies too low to detect
         } else {
             outputArray[curOutputIdx] = round_num(weightedAvg * 63 / fundamental); // update output array bin with weighted average/mean scaled to 0-63 for fitting to display height

@@ -88,7 +88,7 @@ void compute (float data_re [], float data_im [], const unsigned int N)
 int find_fundamental_index (int array[])
 {
     int fundamental = 0; 
-    for (int i = 0; i < ARRAY_SIZE; i++)
+    for (int i = 2; i < ARRAY_SIZE; i++)
     {
         if (array [i] > fundamental)
         {
