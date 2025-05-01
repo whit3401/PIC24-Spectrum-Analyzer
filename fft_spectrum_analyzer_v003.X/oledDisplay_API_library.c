@@ -1046,12 +1046,12 @@ void OLED_WriteFFT(int data[128])
  * prepares an array for display by resizing to a length of 128, and changing to a logarithmic scale of bin widths
  * by method of fitting bins logarithmically and uses weighted means of fractional bin inclusions
  * 
- * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(6.4 Hz), total range 3.2 kHz
+ * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(4.8 Hz), total range 2.4 kHz
  * @param outputArray[]: the output display array of size 128
  */
 void resize_freq_array(int inputArray[], int outputArray[], int fundamental){
     int inputSize = 500; //size of the input array
-    float inputBin = 6.4; //bin width of the input array
+    float inputBin = 4.8; //bin width of the input array
     float inputRange = inputBin * inputSize; // total frequency range of the input array
     int triNumber = (128*127)/2; // 128 + 127 + ... + 1, for computation
     float widthMultiplier = (inputRange - 128 * inputBin) / triNumber; //the bin width increase of the output per index of the input
