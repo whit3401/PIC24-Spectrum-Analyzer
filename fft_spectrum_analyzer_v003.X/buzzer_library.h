@@ -13,8 +13,9 @@ extern "C" {
 #endif
     
     void buzzer_pwm_setup(void);
-    void buzz(int freq);
+    void buzz(unsigned int freq);
     void stop_buzz(void);
+    void buzz_for_5_seconds(unsigned int freq);
 
 #ifdef	__cplusplus
 }

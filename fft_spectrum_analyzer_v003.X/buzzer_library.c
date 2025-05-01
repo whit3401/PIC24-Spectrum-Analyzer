@@ -11,7 +11,6 @@
 
 #define BUZZER_PIN LATBbits.LATB12
 
-
 void buzzer_pwm_setup(void){
     // unlocking PPS
     __builtin_write_OSCCONL(OSCCON & 0xBF); // unlock PPS
@@ -26,7 +25,7 @@ void buzzer_pwm_setup(void){
     TMR2 = 0;        // initialize to 0: Timer 3
     PR2 = 999; // random initial period
     T2CONbits.TON = 0;
-    
+      
     // set OC1 for servo PWM (1-2ms pulse in 20ms frame)
     
     OC1CON = 0;
@@ -36,9 +35,9 @@ void buzzer_pwm_setup(void){
     OC1CONbits.OCTSEL = 0; // set Timer 2 as clock source
 }
 
-void buzz(int freq) {
+void buzz(unsigned int freq) {
     
-    int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
+    unsigned int period = 16944000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
@@ -55,16 +54,19 @@ void buzz(int freq) {
         period /= 8;
     }
     
-//    PR2 = period - 1;
-    PR2 = 36363;
+    PR2 = period - 1;
     
     T2CONbits.TON = 1;
-    OC1CON = 1; 
 }
 
 void stop_buzz(void){
     T2CONbits.TON = 0;
-    OC1CON = 0;
+}
+
+void buzz_for_3_seconds(unsigned int freq) {
+    buzz(freq);
+    delay_ms(3000); // Delay for 3 seconds
+    stop_buzz();
 }
 
 void setVolume(int volume){ //volume is a value 1-99
