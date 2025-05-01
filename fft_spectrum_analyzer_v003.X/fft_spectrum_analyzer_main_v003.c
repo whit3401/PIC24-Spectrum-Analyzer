@@ -55,7 +55,7 @@ int main(void) {
         
     
     // array for real data in fft
-    float realVals [ARRAY_SIZE]; 
+    float realVals [ARRAY_SIZE] = {0}; 
     // array for imaginary data in fft
     float imagVals [ARRAY_SIZE] = {0}; 
     
@@ -174,9 +174,19 @@ int main(void) {
             
             magnitude (realVals, imagVals, ARRAY_SIZE); 
                     
-            int fundamental = find_fundamental ((int*)realVals);
+            int fundamental = find_fundamental ((int*)adcVals);
             
             buzz (fundamental); 
+            
+            resize_freq_array(adcVals, sample_freq_array);
+            OLED_WriteFFT(sample_freq_array);
+            OLED_Update();
+            
+            //resetting arrays so old data does not affect new inputs 
+//            adcVals = {0}; 
+//            realVals = {0}; 
+//            imagVals = {0}; 
+            
             
         }
         int ab = 0;
