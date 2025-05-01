@@ -63,9 +63,6 @@ int main(void) {
     lcd_clear();
     lcd_printStr("Ready");
     OLED_SetContrast(0xFF);
-    OLED_DrawPixel(64, 32, 1);
-    OLED_V_Line( 2, 40, 5, 1);
-//    OLED_InvertDisplay(1);
     OLED_ClearDisplay();
     
     int sample_fft_out[500] = {
@@ -74,11 +71,11 @@ int main(void) {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 200, 75, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        200, 100, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -121,15 +118,12 @@ int main(void) {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
 
-    int sample_freq_array[128];
+    int display_freq_array[128];
     
-    resize_freq_array(sample_fft_out, sample_freq_array, 50);
+    resize_freq_array(sample_fft_out, display_freq_array, 100);
 
-    OLED_WriteFFT(sample_freq_array);
+    OLED_WriteFFT(display_freq_array);
     OLED_Update();
-    
-    //buzz(523); //C5
-    // buzz_for_3_seconds(523); //C5
 
     
     while(1){
@@ -181,8 +175,8 @@ int main(void) {
             
             buzz (fundamental_index * 4.8); 
             
-            resize_freq_array(adcVals, sample_freq_array, adcVals[fundamental_index]);
-            OLED_WriteFFT(sample_freq_array);
+            resize_freq_array(adcVals, display_freq_array, adcVals[fundamental_index]);
+            OLED_WriteFFT(display_freq_array);
             OLED_Update();
             
             //resetting arrays so old data does not affect new inputs 
