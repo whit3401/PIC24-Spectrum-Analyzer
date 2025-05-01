@@ -178,7 +178,7 @@ int main(void) {
             
             buzz (fundamental); 
             
-            resize_freq_array(adcVals, sample_freq_array);
+            resize_freq_array(adcVals, sample_freq_array, fundamental);
             OLED_WriteFFT(sample_freq_array);
             OLED_Update();
             
