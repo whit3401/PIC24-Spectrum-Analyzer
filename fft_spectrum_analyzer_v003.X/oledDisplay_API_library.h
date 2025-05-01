@@ -132,7 +132,7 @@ void OLED_Write_Text( int16_t x, int16_t y, char *text, uint8_t length);
 
 int round_num(float val);
 void OLED_WriteFFT(int data[]);
-void resize_freq_array(int inputArray[], int outputArray[]);
+void resize_freq_array(int inputArray[], int outputArray[], int fundamental);
 
 
 #ifdef	__cplusplus

@@ -123,7 +123,7 @@ int main(void) {
 
     int sample_freq_array[128];
     
-    resize_freq_array(sample_fft_out, sample_freq_array);
+    resize_freq_array(sample_fft_out, sample_freq_array, 50);
 
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();

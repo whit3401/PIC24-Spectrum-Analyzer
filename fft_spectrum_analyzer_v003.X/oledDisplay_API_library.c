@@ -1048,7 +1048,7 @@ void OLED_WriteFFT(int data[128])
  * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(4.8 Hz), total range 2.4 kHz
  * @param outputArray[]: the output display array of size 128
  */
-void resize_freq_array(int inputArray[], int outputArray[]){
+void resize_freq_array(int inputArray[], int outputArray[], int fundamental){
     int inputSize = 500; //size of the input array
     float inputBin = 4.8; //bin width of the input array
     float inputRange = inputBin * inputSize; // total frequency range of the input array
@@ -1095,6 +1095,6 @@ void resize_freq_array(int inputArray[], int outputArray[]){
         
         weightedAvg = weightedSum / totalWeight; // compute weighted average/mean
         
-        outputArray[curOutputIdx] = weightedAvg; // update output array bin with weighted average/mean
+        outputArray[curOutputIdx] = round_num(weightedAvg * 63 / fundamental); // update output array bin with weighted average/mean scaled to 0-63 for fitting to display height
     }
 }
