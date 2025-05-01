@@ -83,8 +83,6 @@ void compute (float data_re [], float data_im [], const unsigned int N)
             twiddle_im = sin (angle); 
         }
     }
-    
-    magnitude (data_re, data_im, N); 
 }
 
 int find_fundamental (int array[])
@@ -94,8 +92,8 @@ int find_fundamental (int array[])
     {
         if (array [i] > fundamental)
         {
-            fundamental = array [i]; 
-            // possibly multiply by 4 to account for bin width of 4
+            // multiply by 4 to account for bin width of 4 Hz
+            fundamental = i * 4; 
         }
     }
     return fundamental; 

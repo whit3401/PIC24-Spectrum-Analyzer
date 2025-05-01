@@ -13,6 +13,7 @@
 #include "button_control_library.h"
 #include "buzzer_library.h"
 #include "I2C_library.h"
+#include "shared.h"
 
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
 #pragma config ICS = PGx1          // Comm Channel Select (Emulator EMUC1/EMUD1 pins are shared with PGC1/PGD1)
@@ -51,9 +52,7 @@ int main(void) {
     
     int firstPress = 1; // TEMP DEBUGGING VAR
     int firstUp = 0; // TEMP DEBUGGING VAR
-    
-    int imagVals [ARRAY_SIZE] = {0}; 
-    
+        
     lcd_clear();
     lcd_printStr("Ready");
     OLED_SetContrast(0xFF);
@@ -80,6 +79,11 @@ int main(void) {
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0
     };
+    
+    // array for real data in fft
+    float realVals [ARRAY_SIZE]; 
+    // array for imaginary data in fft
+    float imagVals [ARRAY_SIZE] = {0}; 
     
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();
@@ -115,21 +119,21 @@ int main(void) {
             // fft will be called using the format:
             // fft (realVals[] , imaginaryVals [], number of vals / size of array)
             
-            // FIX ME: types not matching, wont compile
-            // int adcVals [];
-            // adcVals = get_digital_signal_data(); 
-            // fft (adcVals[], imagVals[ARRAY_SIZE], ARRAY_SIZE);
-            //magnitude (adcVals [ARRAY_SIZE]); 
-            // find_fundamental (adcVals); 
-                    
-            // transform audio data to frequency domain
-                // the audio data will need to be put into a 2D array, with the audio data in the first row
-                // and the second row will be all zeroes, later to be used for imaginary numbers.
-                // this array will then be passed as a parameter to the fft function
+            // converting adcVals into main
+            volatile int* adcVals = get_digital_signal_data(); 
             
-            // update display with transformed output
-            int x = 1; // TEMP FOR DEBUGGING
-//            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
+            for (int i = 0; i < ARRAY_SIZE; i++)
+            {
+                // converting from volatile int  to float so it can be used by the fft function with the correct parameter type
+                realVals [i] = (float)adcVals[i]; 
+            }
+            
+            fft (realVals, imagVals, ARRAY_SIZE); 
+            
+            magnitude (realVals, imagVals, ARRAY_SIZE); 
+                    
+            int fundamental = find_fundamental ((int*)realVals);
+            
         }
             
                 
