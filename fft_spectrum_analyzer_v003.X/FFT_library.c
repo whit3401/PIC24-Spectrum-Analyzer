@@ -64,7 +64,7 @@ void compute (float data_re [], float data_im [], const unsigned int N)
             {
                 const unsigned int match = pair + step;
                 const float product_re = twiddle_re * data_re [match] - twiddle_im * data_im [match];
-                const float product_im = twiddle_im * data_re [match] - twiddle_re * data_im [match];
+                const float product_im = twiddle_im * data_re [match] + twiddle_re * data_im [match];
                 data_re [match] = data_re [pair] - product_re; 
                 data_im [match] = data_im [pair] - product_im; 
                 data_re [pair] += product_re; 
@@ -87,14 +87,16 @@ void compute (float data_re [], float data_im [], const unsigned int N)
 
 int find_fundamental_index (int array[])
 {
-    int fundamental = 0; 
+    int fundamentalIdx = 0; 
+    int maxVal = 0;
     for (int i = 2; i < ARRAY_SIZE; i++)
     {
-        if (array [i] > fundamental)
+        if (array [i] > maxVal)
         {
+            maxVal = array[i];
             // multiply by 4 to account for bin width of 4 Hz
-            fundamental = i; 
+            fundamentalIdx = i; 
         }
     }
-    return fundamental; 
+    return fundamentalIdx; 
 }
