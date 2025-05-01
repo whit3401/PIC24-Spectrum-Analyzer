@@ -48,7 +48,7 @@ volatile int* get_digital_signal_data(){
     sampleReady = 0;
     return adcVals;
 }
-
+    
 int is_sample_ready(){
     return sampleReady;
 }

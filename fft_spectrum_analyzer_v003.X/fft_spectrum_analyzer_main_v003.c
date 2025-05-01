@@ -88,14 +88,15 @@ int main(void) {
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();
     
-//    buzz(523); //C5
+    buzz(523); //C5
     buzz_for_3_seconds(523); //C5
+
     
     while(1){
         
         firstPress = 1;
         while(is_button_pressed()) {
-            
+
             // take and store audio sample
             int audioSignal = PORTAbits.RA0; // PLACEHOLDER
             if (firstPress){
@@ -112,6 +113,7 @@ int main(void) {
             lcd_clear();
             lcd_printStr("DONE");
             firstUp = 0;
+            buzz(250);
         }
         
         
@@ -135,6 +137,8 @@ int main(void) {
             int fundamental = find_fundamental ((int*)realVals);
             
         }
+        int ab = 0;
+        ab++;
             
                 
     }

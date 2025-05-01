@@ -37,7 +37,7 @@ void buzzer_pwm_setup(void){
 
 void buzz(unsigned int freq) {
     
-    unsigned int period = 16944000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
+    unsigned long int period = 16944000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
