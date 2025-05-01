@@ -8,6 +8,7 @@
 #include "xc.h"
 #include "asmLib_v001.h"
 #include "buzzer_library.h"
+#include "I2C_library.h"
 
 #define BUZZER_PIN LATBbits.LATB12
 

@@ -130,6 +130,10 @@ void OLED_Image( const uint8_t *image );
 void OLED_Write( int16_t x, int16_t y, char value );
 void OLED_Write_Text( int16_t x, int16_t y, char *text, uint8_t length);
 
+int round_num(float val);
+void OLED_WriteFFT(int data[]);
+void resize_freq_array(int inputArray[], int outputArray[]);
+
 
 #ifdef	__cplusplus
 }
