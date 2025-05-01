@@ -32,7 +32,8 @@
 
 #define ARRAY_SIZE 500
 
-void setup(void) {
+void setup(void) 
+{
     CLKDIVbits.RCDIV=0; // Fcy 16 MHz
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
@@ -50,6 +51,8 @@ int main(void) {
     
     int firstPress = 1; // TEMP DEBUGGING VAR
     int firstUp = 0; // TEMP DEBUGGING VAR
+    
+    int imagVals [ARRAY_SIZE] = {0}; 
     
     lcd_clear();
     lcd_printStr("Ready");
@@ -108,7 +111,16 @@ int main(void) {
         
         
         if(is_sample_ready()){
+            // fft will be called using the format:
+            // fft (realVals[] , imaginaryVals [], number of vals / size of array)
             
+            // FIX ME: types not matching, wont compile
+            // int adcVals [];
+            // adcVals = get_digital_signal_data(); 
+            // fft (adcVals[], imagVals[ARRAY_SIZE], ARRAY_SIZE);
+            //magnitude (adcVals [ARRAY_SIZE]); 
+            // find_fundamental (adcVals); 
+                    
             // transform audio data to frequency domain
                 // the audio data will need to be put into a 2D array, with the audio data in the first row
                 // and the second row will be all zeroes, later to be used for imaginary numbers.
