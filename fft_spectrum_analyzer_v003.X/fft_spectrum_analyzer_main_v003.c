@@ -178,15 +178,17 @@ int main(void) {
             
             buzz (fundamental); 
             
-            resize_freq_array(adcVals, sample_freq_array);
+            resize_freq_array(adcVals, sample_freq_array, fundamental);
             OLED_WriteFFT(sample_freq_array);
             OLED_Update();
             
             //resetting arrays so old data does not affect new inputs 
-//            adcVals = {0}; 
-//            realVals = {0}; 
-//            imagVals = {0}; 
-            
+            for (int i = 0; i < ARRAY_SIZE; i++)
+            {
+                realVals [i] = 0; 
+                imagVals [i] = 0; 
+                adcVals [i] = 0; 
+            }
             
         }
         int ab = 0;
