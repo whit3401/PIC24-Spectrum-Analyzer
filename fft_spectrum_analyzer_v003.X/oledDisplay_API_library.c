@@ -1034,6 +1034,7 @@ int round_num(float val)
  */
 void OLED_WriteFFT(int data[128])
 {   
+    OLED_ClearDisplay();
     for (int i = 0; i < 128; i++){
         OLED_V_Line(63 - data[i], 63, i, 1);
     }
