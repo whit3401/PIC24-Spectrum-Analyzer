@@ -85,7 +85,7 @@ void compute (float data_re [], float data_im [], const unsigned int N)
     }
 }
 
-int find_fundamental (int array[])
+int find_fundamental_index (int array[])
 {
     int fundamental = 0; 
     for (int i = 0; i < ARRAY_SIZE; i++)
@@ -93,7 +93,7 @@ int find_fundamental (int array[])
         if (array [i] > fundamental)
         {
             // multiply by 4 to account for bin width of 4 Hz
-            fundamental = i * 4; 
+            fundamental = i; 
         }
     }
     return fundamental; 

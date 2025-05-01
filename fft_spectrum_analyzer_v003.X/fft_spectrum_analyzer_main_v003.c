@@ -78,11 +78,11 @@ int main(void) {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+        200, 100, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 50, 50, 50, 50, 50, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -174,11 +174,11 @@ int main(void) {
             
             magnitude (realVals, imagVals, ARRAY_SIZE); 
                     
-            int fundamental = find_fundamental ((int*)adcVals);
+            int fundamental_index = find_fundamental_index ((int*)adcVals);
             
-            buzz (fundamental); 
+            buzz (fundamental_index * 4); 
             
-            resize_freq_array(adcVals, sample_freq_array, fundamental);
+            resize_freq_array(adcVals, sample_freq_array, adcVals[fundamental_index]);
             OLED_WriteFFT(sample_freq_array);
             OLED_Update();
             
