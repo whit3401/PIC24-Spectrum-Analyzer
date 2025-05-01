@@ -1012,6 +1012,18 @@ static void swap_num( uint16_t *a, uint16_t *b )
   *b = temp;
 }
 
+/**
+ * @brief rounds a float to the closest int
+ * 
+ * adds .5 to a float, then casts to truncate it. Thus if it is closer than .5 to the ceiling, it will be rounded up.
+ *
+ * @param val: some float to be rounded
+ */
+int round_num(float val)
+{
+    return (int)(val + 0.5);
+}
+
 
 /**
  * @brief display FFT graph
@@ -1030,10 +1042,11 @@ void OLED_WriteFFT(int data[128])
 /**
  * @brief fit frequency array to screen dimensions
  * 
- * resizes an array of frequency magnitudes to a length of 128, with logarithmic bin widths
- *
- * @param inputArray[]: an array of size 500 with a linear bin width of 4.8 Hz, total range 2.4 kHz
- * @param outputArray[]: an array of size 128
+ * prepares an array for display by resizing to a length of 128, and changing to a logarithmic scale of bin widths
+ * by method of fitting bins logarithmically and uses weighted means of fractional bin inclusions
+ * 
+ * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(4.8 Hz), total range 2.4 kHz
+ * @param outputArray[]: the output display array of size 128
  */
 void resize_freq_array(int inputArray[], int outputArray[]){
     int inputSize = 500; //size of the input array
@@ -1042,13 +1055,46 @@ void resize_freq_array(int inputArray[], int outputArray[]){
     int triNumber = (128*127)/2; // 128 + 127 + ... + 1, for computation
     float widthMultiplier = (inputRange - 128 * inputBin) / triNumber; //the bin width increase of the output per index of the input
     
-    float curFreq = 0;
-    float curInputBin = 0;
-    int curInputIdx = 0;
-    for (int curOutputIdx = 0; curOutputIdx < 128; curOutputIdx++){
-        curFreq += 4.8 + curOutputIdx * widthMultiplier;
-        curInputIdx = curFreq / 4.8 - 1;
-    }
+    float curFreq = 0; // current frequency of interest
+    float curInputIdxLowerFrac = 0; // the fraction of the lower index which is included in the current bin of interest
+    int curBinLowerIdx = 0; // the index of the lowest input bin which is included in the current output bin of interest
+    float curInputIdxUpperFrac = 0; // the fraction of the highest index which is included in the current bin of interest
+    int curBinUpperIdx = 0; // the index of the highest input bin which is included in the current output bin of interest
+    float curOutBinWidth = 0; // the bin width of the current output bin of interests
+    float upperWeight = 0; // the weight, for weighted mean, of the highest included input bin
+    float lowerWeight = 0; // the weight, for weighted mean, of the lowest included input bin
+    float totalWeight = 0; // a running total of the weights for weighted mean
+    float weightedSum = 0; // the weighted sum of all values of the included bins
+    float weightedAvg = 0; // the weight mean, or weighted average, to be placed in the output bin
     
-    return 0;
+    for (int curOutputIdx = 0; curOutputIdx < 128; curOutputIdx++){
+        weightedSum = 0;
+        weightedAvg = 0;
+        totalWeight = 0;
+        
+        curInputIdxLowerFrac = curFreq / 4.8; // get a fractional representation of the lowest included bin's index, the lower the decimal value, the more that bin is included
+        curOutBinWidth = curOutputIdx * widthMultiplier; // get the bin width of the current bin of interest
+        curFreq += 4.8 + curOutBinWidth; // keep track of the current frequency of interest, which increases logarithmically
+        curInputIdxUpperFrac = curFreq / 4.8; // get a fractional representation of the highest included bin's index, the higher the decimal value, the more that bin is included
+        
+        curBinUpperIdx = (int) curInputIdxUpperFrac;
+        curBinLowerIdx = (int) curInputIdxLowerFrac;
+        
+        upperWeight = curInputIdxUpperFrac - curBinUpperIdx; // the weight of the highest included bin, a measure of how "included" that input bin is to the output bin
+        lowerWeight = 1 - (curInputIdxLowerFrac - curBinLowerIdx);// the weight of the lowest included bin, a measure of how "included" that input bin is to the output bin
+        totalWeight += upperWeight+lowerWeight; // update the total running weight for weighted mean
+        
+        weightedSum += inputArray[curBinLowerIdx] * lowerWeight; // update running weighted sum for weighted mean with lowest included bin
+        weightedSum += inputArray[curBinUpperIdx] * upperWeight; // update running weighted sum for weighted mean with highest included bin
+        
+        // update running weighted sum and weight for intermediary included bins, all of which are entirely included and thus have a weight of 1
+        for (int curInputIdx = curBinLowerIdx + 1; curInputIdx < curBinUpperIdx; curInputIdx++) {
+            weightedSum += inputArray[curInputIdx];
+            totalWeight += 1;
+        }
+        
+        weightedAvg = weightedSum / totalWeight; // compute weighted average/mean
+        
+        outputArray[curOutputIdx] = weightedAvg; // update output array bin with weighted average/mean
+    }
 }
