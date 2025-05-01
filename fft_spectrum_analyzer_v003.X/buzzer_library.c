@@ -11,7 +11,6 @@
 
 #define BUZZER_PIN LATBbits.LATB12
 
-
 void buzzer_pwm_setup(void){
     // unlocking PPS
     __builtin_write_OSCCONL(OSCCON & 0xBF); // unlock PPS
@@ -62,6 +61,12 @@ void buzz(unsigned int freq) {
 
 void stop_buzz(void){
     T2CONbits.TON = 0;
+}
+
+void buzz_for_3_seconds(unsigned int freq) {
+    buzz(freq);
+    delay_ms(3000); // Delay for 3 seconds
+    stop_buzz();
 }
 
 void setVolume(int volume){ //volume is a value 1-99
