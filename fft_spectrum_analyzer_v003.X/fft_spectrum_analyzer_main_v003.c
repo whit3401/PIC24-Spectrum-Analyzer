@@ -13,6 +13,7 @@
 #include "button_control_library.h"
 #include "buzzer_library.h"
 #include "I2C_library.h"
+#include "shared.h"
 
 // CW1: FLASH CONFIGURATION WORD 1 (see PIC24 Family Reference Manual 24.1)
 #pragma config ICS = PGx1          // Comm Channel Select (Emulator EMUC1/EMUD1 pins are shared with PGC1/PGD1)
@@ -32,7 +33,8 @@
 
 #define ARRAY_SIZE 500
 
-void setup(void) {
+void setup(void) 
+{
     CLKDIVbits.RCDIV=0; // Fcy 16 MHz
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
@@ -50,6 +52,13 @@ int main(void) {
     
     int firstPress = 1; // TEMP DEBUGGING VAR
     int firstUp = 0; // TEMP DEBUGGING VAR
+        
+    
+    // array for real data in fft
+    float realVals [ARRAY_SIZE]; 
+    // array for imaginary data in fft
+    float imagVals [ARRAY_SIZE] = {0}; 
+    
     
     lcd_clear();
     lcd_printStr("Ready");
@@ -111,20 +120,23 @@ int main(void) {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0
     };
-    
+
     int sample_freq_array[128];
     
     resize_freq_array(sample_fft_out, sample_freq_array);
+
     OLED_WriteFFT(sample_freq_array);
     OLED_Update();
     
-    buzz(0);
+    buzz(523); //C5
+    buzz_for_3_seconds(523); //C5
+
     
     while(1){
         
         firstPress = 1;
         while(is_button_pressed()) {
-            
+
             // take and store audio sample
             int audioSignal = PORTAbits.RA0; // PLACEHOLDER
             if (firstPress){
@@ -141,20 +153,32 @@ int main(void) {
             lcd_clear();
             lcd_printStr("DONE");
             firstUp = 0;
+            buzz(250);
         }
         
         
         if(is_sample_ready()){
+            // fft will be called using the format:
+            // fft (realVals[] , imaginaryVals [], number of vals / size of array)
             
-            // transform audio data to frequency domain
-                // the audio data will need to be put into a 2D array, with the audio data in the first row
-                // and the second row will be all zeroes, later to be used for imaginary numbers.
-                // this array will then be passed as a parameter to the fft function
+            // converting adcVals into main
+            volatile int* adcVals = get_digital_signal_data(); 
             
-            // update display with transformed output
-            int x = 1; // TEMP FOR DEBUGGING
-//            int abc = get_digital_signal_data(); // TEMP FOR DEBUGGING
+            for (int i = 0; i < ARRAY_SIZE; i++)
+            {
+                // converting from volatile int  to float so it can be used by the fft function with the correct parameter type
+                realVals [i] = (float)adcVals[i]; 
+            }
+            
+            fft (realVals, imagVals, ARRAY_SIZE); 
+            
+            magnitude (realVals, imagVals, ARRAY_SIZE); 
+                    
+            int fundamental = find_fundamental ((int*)realVals);
+            
         }
+        int ab = 0;
+        ab++;
             
                 
     }

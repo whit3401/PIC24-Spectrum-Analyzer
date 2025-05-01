@@ -8,9 +8,9 @@
 #include "xc.h"
 #include "asmLib_v001.h"
 #include "buzzer_library.h"
+#include "I2C_library.h"
 
 #define BUZZER_PIN LATBbits.LATB12
-
 
 void buzzer_pwm_setup(void){
     // unlocking PPS
@@ -26,7 +26,7 @@ void buzzer_pwm_setup(void){
     TMR2 = 0;        // initialize to 0: Timer 3
     PR2 = 999; // random initial period
     T2CONbits.TON = 0;
-    
+      
     // set OC1 for servo PWM (1-2ms pulse in 20ms frame)
     
     OC1CON = 0;
@@ -38,7 +38,7 @@ void buzzer_pwm_setup(void){
 
 void buzz(unsigned int freq) {
     
-    unsigned int period = 16000000 / freq; // 16 MHz / freq = Period / Tcy
+    unsigned long int period = 16944000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
@@ -55,14 +55,19 @@ void buzz(unsigned int freq) {
         period /= 8;
     }
     
-//    PR2 = period - 1;
-    PR2 = 36363;
+    PR2 = period - 1;
     
     T2CONbits.TON = 1;
 }
 
 void stop_buzz(void){
     T2CONbits.TON = 0;
+}
+
+void buzz_for_3_seconds(unsigned int freq) {
+    buzz(freq);
+    delay_ms(3000); // Delay for 3 seconds
+    stop_buzz();
 }
 
 void setVolume(int volume){ //volume is a value 1-99
