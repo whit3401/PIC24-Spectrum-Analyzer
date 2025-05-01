@@ -18,7 +18,7 @@ void magnitude (float data_re [], float data_im [], int N)
     for (int i = 0; i < ARRAY_SIZE; i++)
     {
         // finding magnitude of real and imaginary data
-        adcVals [i] = sqrt ((data_re[i]) * (data_re [i]) + (data_im [i]) + (data_im [i])); 
+        adcVals [i] = sqrt ((data_re[i]) * (data_re [i]) + (data_im [i]) * (data_im [i])); 
     }
 }
 
