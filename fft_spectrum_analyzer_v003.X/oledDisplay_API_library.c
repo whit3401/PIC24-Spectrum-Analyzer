@@ -12,6 +12,7 @@
 #include "xc.h"
 #include "oledDisplay_API_library.h"
 #include "I2C_library.h"
+#include "shared.h"
 
 // Constant Fonts
 const uint8_t SMALL_FONTS[] =
@@ -1047,10 +1048,10 @@ void OLED_WriteFFT(int data[128])
  * by method of fitting bins logarithmically and uses weighted means of fractional bin inclusions
  * 
  * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(4.8 Hz), total range 2.4 kHz
- * @param outputArray[]: the output display array of size 128
+ * @param outputArray[]: the output display array of size 128, to be overwritten
  */
 void resize_freq_array(int inputArray[], int outputArray[], int fundamental){
-    int inputSize = 500; //size of the input array
+    int inputSize = ARRAY_SIZE; //size of the input array
     float inputBin = 4.8; //bin width of the input array
     float inputRange = inputBin * inputSize; // total frequency range of the input array
     int triNumber = (128*127)/2; // 128 + 127 + ... + 1, for computation

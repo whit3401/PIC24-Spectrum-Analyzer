@@ -8,8 +8,10 @@
 #ifndef SHARED_H
 #define SHARED_H
 
+#define ARRAY_SIZE 500
+
 // declared so adcVals can be used in multiple source files without multiple declarations
 // this was necessary for the magnitude function to work
-extern volatile int adcVals[500];
+extern volatile int adcVals[ARRAY_SIZE];
 
 #endif

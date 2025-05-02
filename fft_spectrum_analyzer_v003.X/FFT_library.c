@@ -11,8 +11,6 @@
 #include <stdio.h>
 #include "shared.h"
 
-#define ARRAY_SIZE 500
-
 void magnitude (float data_re [], float data_im [], int N)
 {
     for (int i = 0; i < ARRAY_SIZE; i++)
