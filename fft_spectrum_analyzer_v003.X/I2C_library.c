@@ -10,20 +10,11 @@
 #include "I2C_library.h"
 
 
-/*
- * NOTE:
- * Currently this library is configured for the lcd display
- * for testing purposes before we can receive and implement
- * functionality for the OLED display which will be used
-*/
-
-
 void delay_ms(int delay_in_ms) {
     for (int i = 0; i < delay_in_ms; i++) {
         wait_1ms();
     }
 }
-
 
 void lcd_reset(void) {
     delay_ms(1);

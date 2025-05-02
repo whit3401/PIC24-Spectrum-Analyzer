@@ -1,5 +1,5 @@
 /* 
- * File:   spectrum_analyzer_main_v002.c
+ * File:   spectrum_analyzer_main_v003.c
  * Author: tysen
  *
  * Created on April 15, 2025, 9:47 PM
@@ -31,7 +31,6 @@
                                        // Fail-Safe Clock Monitor is enabled)
 #pragma config FNOSC = FRCPLL      // Oscillator Select (Fast RC Oscillator with PLL module (FRCPLL))
 
-#define ARRAY_SIZE 500
 
 void setup(void) 
 {
@@ -47,7 +46,6 @@ void setup(void)
     init_push_button();
     buzzer_pwm_setup();
 }
-
 
 int main(void) {
     setup();
@@ -115,9 +113,10 @@ int main(void) {
             
             for (int i = 0; i < ARRAY_SIZE; i++)
             {
-                /* Convert from volatile int to float so it can be
+                /* 
+                 * Convert from volatile int to float so it can be
                  * used by the FFT function with the correct parameter type
-                 * and store in array of real FFT values
+                 * and store in the array of real FFT values
                  */ 
                 realVals [i] = (float)adcVals[i]; 
             }
@@ -127,7 +126,9 @@ int main(void) {
             /* Gets the magnitudes of the FFT output and reuses adcVals to store result to save memory */
             magnitude(realVals, imagVals, ARRAY_SIZE);
             
-            /* Clear frequencies which are too small for detection
+            
+            /* 
+             * Clear frequencies which are too small for detection
              *  Sample duration is 0.15 seconds, which means frequencies with periods
              *  longer than this would not have enough time to complete a full cycle
              *  and be accurately represented. 1/0.15 = 6.66 Hz, thus the first 2 bins
