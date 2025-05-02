@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include "shared.h"
 
-void magnitude (float data_re [], float data_im [], int N)
+void magnitude(float data_re [], float data_im [], int N)
 {
     for (int i = 0; i < ARRAY_SIZE; i++)
     {
@@ -20,7 +20,7 @@ void magnitude (float data_re [], float data_im [], int N)
     }
 }
 
-void fft (float data_re[], float data_im[], const unsigned int N)
+void fft(float data_re[], float data_im[], const unsigned int N)
 {
     rearrange (data_re, data_im, N);
     compute (data_re, data_im, N);
@@ -47,7 +47,7 @@ void rearrange (float data_re[], float data_im [], const unsigned int N)
     }
 }
 
-void compute (float data_re [], float data_im [], const unsigned int N)
+void compute(float data_re [], float data_im [], const unsigned int N)
 {
     const float pi = -3.14159265358979323846;
     for (unsigned int step = 1; step < N; step <<=1)
@@ -83,7 +83,7 @@ void compute (float data_re [], float data_im [], const unsigned int N)
     }
 }
 
-int find_fundamental_index (int array[])
+int find_fundamental_index(int array[])
 {
     int fundamentalIdx = 0; 
     int maxVal = 0;

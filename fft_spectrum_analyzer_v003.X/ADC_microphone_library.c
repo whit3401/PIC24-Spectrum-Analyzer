@@ -13,7 +13,7 @@
 
 #define SAMPLE_INTERVAL 1 //the time between each sample, currently placeholder value
 
-volatile int adcVals[ARRAY_SIZE];
+int adcVals[ARRAY_SIZE];
 volatile int sampleCount = 0; 
 volatile int sampleReady = 0;
 

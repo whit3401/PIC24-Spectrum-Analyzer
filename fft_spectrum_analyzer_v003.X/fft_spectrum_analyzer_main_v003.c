@@ -35,9 +35,11 @@
 
 void setup(void) 
 {
-    CLKDIVbits.RCDIV=0; // Fcy 16 MHz
+    /* Initialize PIC24 */
+    CLKDIVbits.RCDIV=0; // Fcy set to 16 MHz
     AD1PCFG = 0x9fff; // set all pins to digital by default, change pins as necessary in ADC library
     
+    /* Call all setup and initialization functions from libraries */
     microphone_setup();
     i2c_setup();
     lcd_init(0xA);
@@ -50,147 +52,110 @@ void setup(void)
 int main(void) {
     setup();
     
-    int firstPress = 1; // TEMP DEBUGGING VAR
-    int firstUp = 0; // TEMP DEBUGGING VAR
-        
-    
-    // array for real data in fft
+    // array for real data in FFT
     float realVals [ARRAY_SIZE] = {0}; 
-    // array for imaginary data in fft
+    // array for imaginary data in FFT
     float imagVals [ARRAY_SIZE] = {0}; 
     
     
-    lcd_clear();
-    lcd_printStr("Ready");
-    OLED_SetContrast(0xFF);
-    OLED_ClearDisplay();
+    lcd_clear(); // Clear the LCD display
+    OLED_SetContrast(0xFF); // Set OLED display to maximum contrast
+    OLED_ClearDisplay(); // Clear the OLED display
     
-    int sample_fft_out[500] = {
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-    };
+    
+    /* 
+     * Create Initialized Output for OLED Display 
+     *  also useful for display debugging
+     */
+    int sample_fft_out[500];
+    for(int i = 0; i < 500; i++){
+        sample_fft_out[i] = 0;
+    }
 
+    /* Initialize Array for Displaying to the OLED */
     int display_freq_array[128];
     
-    resize_freq_array(sample_fft_out, display_freq_array, 100);
+    resize_freq_array(sample_fft_out, display_freq_array, 100); // Fits the sample output array data to the display array
 
-    OLED_WriteFFT(display_freq_array);
-    OLED_Update();
-
+    OLED_WriteFFT(display_freq_array); // Write the display array to the OLED as an FFT graph
+    OLED_Update(); // Refresh the OLED display with changes
+    
+    
+    int firstPress = 1; // BOOL, is this the first consecutive detection of a button press
+    int firstUp = 0; // BOOL, is this the first consecutive detection of a button press being released
+    
+    lcd_printStr("Ready"); // Write to the LCD screen that the spectrum analyzer is ready for use
     
     while(1){
         
-        firstPress = 1;
+        firstPress = 1; // Reset for next press
         while(is_button_pressed()) {
 
             // take and store audio sample
-            int audioSignal = PORTAbits.RA0; // PLACEHOLDER
-            if (firstPress){
-                begin_sampling();
+            if (firstPress){ // do repeat on consecutive press detections
+                begin_sampling(); // Fill the adcVals array with time domain microphone data
                 lcd_clear();
-                lcd_printStr("SAMPLING...");
-                firstPress = 0;
-                firstUp = 1;
+                lcd_printStr("SAMPLING..."); // show on the LCD display that the spectrum analyzer is sampling
+                firstPress = 0; // this is no longer the first consecutive press detection
+                firstUp = 1; // the next release will be the first of consecutive release detections
             }
             
         }
+        
         if(firstUp){
-//            end_sampling();
             lcd_clear();
-            lcd_printStr("DONE");
-            firstUp = 0;
-            buzz(250);
+            lcd_printStr("DONE"); // show on the LCD display that the spectrum analyzer is finished sampling
+            firstUp = 0; // reset for next release
         }
         
-        
-        if(is_sample_ready()){
-            // fft will be called using the format:
-            // fft (realVals[] , imaginaryVals [], number of vals / size of array)
+        if(is_sample_ready()){ // when sampling is finished and button is not being held
             
-            // converting adcVals into main
-            volatile int* adcVals = get_digital_signal_data(); 
+            /* FFT will be called using the format:
+               FFT (realVals[] , imaginaryVals [], number of vals / size of array) */
             
             for (int i = 0; i < ARRAY_SIZE; i++)
             {
-                // converting from volatile int  to float so it can be used by the fft function with the correct parameter type
+                /* Convert from volatile int to float so it can be
+                 * used by the FFT function with the correct parameter type
+                 * and store in array of real FFT values
+                 */ 
                 realVals [i] = (float)adcVals[i]; 
             }
             
-            fft (realVals, imagVals, ARRAY_SIZE); 
+            fft(realVals, imagVals, ARRAY_SIZE); // perform FFT
             
-            magnitude (realVals, imagVals, ARRAY_SIZE);
+            /* Gets the magnitudes of the FFT output and reuses adcVals to store result to save memory */
+            magnitude(realVals, imagVals, ARRAY_SIZE);
             
-            adcVals [0] = 0;
-            adcVals [1] = 0;
+            /* Clear frequencies which are too small for detection
+             *  Sample duration is 0.15 seconds, which means frequencies with periods
+             *  longer than this would not have enough time to complete a full cycle
+             *  and be accurately represented. 1/0.15 = 6.66 Hz, thus the first 2 bins
+             *  must be eliminated
+             */
+            adcVals[0] = 0;
+            adcVals[1] = 0;
                     
-            int fundamental_index = find_fundamental_index (adcVals);
+            /* Get the index of the frequency of strongest magnitude */
+            int fundamental_index = find_fundamental_index(adcVals);
             
-            buzz (fundamental_index * 4.8); 
+            /* Play the fundamental frequency on the buzzer */
+            buzz(fundamental_index * 4.8); 
             
-            resize_freq_array(adcVals, display_freq_array, adcVals[fundamental_index]);
-            OLED_WriteFFT(display_freq_array);
-            OLED_Update();
+            /* Write the FFT output to the OLED display as a frequency domain graph */
+            resize_freq_array(adcVals, display_freq_array, adcVals[fundamental_index]); // fit the data to the display array
+            OLED_WriteFFT(display_freq_array); // update the display with the graphed array
+            OLED_Update(); // refresh the screen with updates
             
-            //resetting arrays so old data does not affect new inputs 
+            /* Reset arrays so old data does not affect new inputs */
             for (int i = 0; i < ARRAY_SIZE; i++)
             {
-                realVals [i] = 0; 
-                imagVals [i] = 0; 
-                adcVals [i] = 0; 
+                realVals[i] = 0; 
+                imagVals[i] = 0; 
+                adcVals[i] = 0; 
             }
             
-        }
-        int ab = 0;
-        ab++;
-            
+        }            
                 
     }
         

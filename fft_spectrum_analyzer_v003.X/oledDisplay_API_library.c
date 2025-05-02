@@ -4,6 +4,9 @@
  * @date 2 Feb, 2020
  * 
  * @brief This file contains OLED drivers for SSD1306 Controller
+ * 
+ * This library was modified and extended from github.com/xpress-embedo/OLED
+ * I2C calls are from I2C library
  *
  * @modified tysen
  * @date 28 April, 2025
@@ -327,7 +330,6 @@ static void ssd1306_command( uint8_t command );
 static void ssd1306_data( uint8_t value );
 static uint8_t width( void );
 static uint8_t height( void );
-static void swap_num( uint16_t *a, uint16_t *b );
 
 /* Public Function Definition */
 
@@ -968,7 +970,7 @@ static void ssd1306_command( uint8_t command )
  *
  * @param value: Send Data to OLED Controller
  */
-static void ssd1306_data( uint8_t value )
+static void __attribute__((unused)) ssd1306_data( uint8_t value ) 
 {
   uint8_t control = 0x40;   // Co = 0, D/C = 1
   I2C_Start(); //send start command
@@ -996,21 +998,6 @@ static uint8_t width( void )
 static uint8_t height( void )
 {
   return SSD1306_LCDHEIGHT;
-}
-
-/**
- * @brief Swap Number
- * 
- * Swap Number using call by reference method
- *
- * @param *a: First Number
- * @param *b: Second Number
- */
-static void swap_num( uint16_t *a, uint16_t *b )
-{
-  uint16_t temp = *a;
-  *a = *b;
-  *b = temp;
 }
 
 /**

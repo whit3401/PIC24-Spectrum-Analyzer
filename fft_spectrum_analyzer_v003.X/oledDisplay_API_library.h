@@ -5,6 +5,9 @@
  * 
  * @brief This file contains OLED drivers for SSD1306 Controller
  *
+ * This library was modified and extended from github.com/xpress-embedo/OLED
+ * I2C calls are from I2C library
+ * 
  * @modified tysen
  * @date 28 April, 2025
  */
@@ -107,7 +110,10 @@ typedef struct _Current_Font_s
 #define SSD1306_SET_PRECHARGE_PERIOD                    0xD9
 #define SSD1306_SET_VCOM_DESELECT                       0xDB
 
-/*Function Prototypes*/
+/*
+ * Original Function Prototypes
+ *  some of these definitions/implementations may have been modified from their source material
+ */
 void OLED_Init( void );
 uint8_t OLED_Width( void );
 uint8_t OLED_Height( void );
@@ -130,7 +136,13 @@ void OLED_Image( const uint8_t *image );
 void OLED_Write( int16_t x, int16_t y, char value );
 void OLED_Write_Text( int16_t x, int16_t y, char *text, uint8_t length);
 
+/* 
+ * Expanded Function Prototypes
+ *  these are newly introduced functions to the library
+ */
+int16_t abs(int16_t value);
 int round_num(float val);
+void OLED_Reset(void);
 void OLED_WriteFFT(int data[]);
 void resize_freq_array(int inputArray[], int outputArray[], int fundamental);
 

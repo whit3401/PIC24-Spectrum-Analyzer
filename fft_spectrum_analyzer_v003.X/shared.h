@@ -12,6 +12,6 @@
 
 // declared so adcVals can be used in multiple source files without multiple declarations
 // this was necessary for the magnitude function to work
-extern volatile int adcVals[ARRAY_SIZE];
+extern int adcVals[ARRAY_SIZE];
 
 #endif
