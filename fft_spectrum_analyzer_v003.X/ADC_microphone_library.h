@@ -20,7 +20,6 @@ extern "C" {
     int is_sample_ready();
 
     void put_val(int newValue);	// add a new value to the buffer
-    void init_buffer();		// set all buffer vals to zero
     void init_arr(void);
     void microphone_setup(void);
 
