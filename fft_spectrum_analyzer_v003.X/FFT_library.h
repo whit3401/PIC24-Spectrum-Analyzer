@@ -24,7 +24,7 @@ void rearrange(float data_re[], float data_im[], const unsigned int N);
 
 void compute(float data_re[], float data_im[], const unsigned int N);
 
-int find_fundamental (int array[]); 
+int find_fundamental_index(int array[]); 
 
 void magnitude (float data_re [], float data_im [], int N); 
 #endif

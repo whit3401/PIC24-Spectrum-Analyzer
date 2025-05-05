@@ -23,12 +23,11 @@ void buzzer_pwm_setup(void){
     // Configure Timer 2
     T2CON = 0;  //Stop and reset timer configuration
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
-    TMR2 = 0;        // initialize to 0: Timer 3
+    TMR2 = 0;        // initialize to 0: Timer 2
     PR2 = 999; // random initial period
-    T2CONbits.TON = 0;
+    T2CONbits.TON = 0; // intialize timer 2 as off, turn on to start buzzer
       
     // set OC1 for servo PWM (1-2ms pulse in 20ms frame)
-    
     OC1CON = 0;
     OC1R = PR2/2; //Set 50% Duty Cycle
     OC1RS = PR2/2; // Update shadow register as well
@@ -36,9 +35,17 @@ void buzzer_pwm_setup(void){
     OC1CONbits.OCTSEL = 0; // set Timer 2 as clock source
 }
 
+/**
+ * @brief Play Buzzer
+ *
+ * Sets the PWM period to match inputted frequency and turns on the connected timer
+ * This plays the buzzer at that desired frequency
+ * 
+ * @param freq: The desired frequency to play on the buzzer in Hz
+ */
 void buzz(unsigned int freq) {
     
-    unsigned long int period = 17000000 / freq; // (16 MHz)*1.059(half-step freq) / freq = Period / Tcy
+    unsigned long int period = 17000000 / freq; // Fcy(16 MHz)*1.059(half-step freq) / freq = Period / Tcy
     
     T2CONbits.TCKPS = 0b00; //sets prescaler to 1:1
     
@@ -61,6 +68,7 @@ void buzz(unsigned int freq) {
 }
 
 void stop_buzz(void){
+    //Stops buzzing by setting the timer controling the PWM off, stopping the buzz
     T2CONbits.TON = 0;
 }
 
@@ -70,6 +78,16 @@ void buzz_for_3_seconds(unsigned int freq) {
     stop_buzz();
 }
 
+/**
+ * @brief Sets Volume of the Buzzer
+ *
+ * Sets the PWM duty cycle to the input percentage,
+ * This sets the volume to that percentage.
+ * Avoid extreme values, especially 0 and 100.
+ * 
+ * @param volume: The desired volume as a percentage
+ * valid values: 25-75
+ */
 void setVolume(int volume){ //volume is a value 1-99
     OC1RS = PR2 * volume / 100; 
 }

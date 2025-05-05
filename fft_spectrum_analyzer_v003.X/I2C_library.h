@@ -12,7 +12,6 @@
 extern "C" {
 #endif
 
-void lcd_setup(void);
 void delay_ms(int delay_in_ms);
 void lcd_reset(void);
 void lcd_cmd(char command);

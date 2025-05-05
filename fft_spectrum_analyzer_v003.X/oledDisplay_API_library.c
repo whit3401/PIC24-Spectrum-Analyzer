@@ -4,6 +4,9 @@
  * @date 2 Feb, 2020
  * 
  * @brief This file contains OLED drivers for SSD1306 Controller
+ * 
+ * This library was modified and extended from github.com/xpress-embedo/OLED
+ * I2C calls are from I2C library
  *
  * @modified tysen
  * @date 28 April, 2025
@@ -12,6 +15,7 @@
 #include "xc.h"
 #include "oledDisplay_API_library.h"
 #include "I2C_library.h"
+#include "shared.h"
 
 // Constant Fonts
 const uint8_t SMALL_FONTS[] =
@@ -326,7 +330,6 @@ static void ssd1306_command( uint8_t command );
 static void ssd1306_data( uint8_t value );
 static uint8_t width( void );
 static uint8_t height( void );
-static void swap_num( uint16_t *a, uint16_t *b );
 
 /* Public Function Definition */
 
@@ -967,7 +970,7 @@ static void ssd1306_command( uint8_t command )
  *
  * @param value: Send Data to OLED Controller
  */
-static void ssd1306_data( uint8_t value )
+static void __attribute__((unused)) ssd1306_data( uint8_t value ) 
 {
   uint8_t control = 0x40;   // Co = 0, D/C = 1
   I2C_Start(); //send start command
@@ -995,21 +998,6 @@ static uint8_t width( void )
 static uint8_t height( void )
 {
   return SSD1306_LCDHEIGHT;
-}
-
-/**
- * @brief Swap Number
- * 
- * Swap Number using call by reference method
- *
- * @param *a: First Number
- * @param *b: Second Number
- */
-static void swap_num( uint16_t *a, uint16_t *b )
-{
-  uint16_t temp = *a;
-  *a = *b;
-  *b = temp;
 }
 
 /**
@@ -1047,10 +1035,10 @@ void OLED_WriteFFT(int data[128])
  * by method of fitting bins logarithmically and uses weighted means of fractional bin inclusions
  * 
  * @param inputArray[]: an array of size inputSize(500) with a linear bin width of inputBin(4.8 Hz), total range 2.4 kHz
- * @param outputArray[]: the output display array of size 128
+ * @param outputArray[]: the output display array of size 128, to be overwritten
  */
 void resize_freq_array(int inputArray[], int outputArray[], int fundamental){
-    int inputSize = 500; //size of the input array
+    int inputSize = ARRAY_SIZE; //size of the input array
     float inputBin = 4.8; //bin width of the input array
     float inputRange = inputBin * inputSize; // total frequency range of the input array
     int triNumber = (128*127)/2; // 128 + 127 + ... + 1, for computation
