@@ -10,10 +10,11 @@
 #define FFT_LIBRARY
 
 // The arrays for the fft will be computed in place
-// and thus your array will have the fft result
-// written over your original data.
+// and thus the adcVals[] array will have the fft result
+// written over the original ADC data.
 // We require an array of real and imaginary floats
-// where they are both of length N
+// where they are both of length N for computation of the fft
+
 void fft(float data_re[], float data_im[], const unsigned int N);
 
 // helper functions called by the fft

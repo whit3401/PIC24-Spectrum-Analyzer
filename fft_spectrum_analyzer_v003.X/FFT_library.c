@@ -11,23 +11,37 @@
 #include <stdio.h>
 #include "shared.h"
 
-void magnitude(float data_re [], float data_im [], int N)
+#define ARRAY_SIZE 500
+
+/* NOTE: 
+    fft has not been taught yet, so knowledge is limited. 
+    Not all functions can be thoroughly explained due to complexity of the algorithm
+    code is explained to the extent of knowledge of the programmer
+*/ 
+
+
+// calculates the magnitude of the real and imaginary part of the fft output array
+void magnitude (float data_re [], float data_im [], int N)
 {
     for (int i = 0; i < ARRAY_SIZE; i++)
     {
-        // finding magnitude of real and imaginary data
+        // magnitude equation
         adcVals [i] = sqrt ((data_re[i]) * (data_re [i]) + (data_im [i]) * (data_im [i])); 
     }
 }
 
-void fft(float data_re[], float data_im[], const unsigned int N)
+// fft function broken into two steps, rearranging the data with bit inversions and computing the fft output array
+void fft (float data_re[], float data_im[], const unsigned int N)
 {
     rearrange (data_re, data_im, N);
     compute (data_re, data_im, N);
 }
 
+// performs bit inversion calculations and moves indices around into their proper place
+    // for when they are calculated later in the compute function
 void rearrange (float data_re[], float data_im [], const unsigned int N)
 {
+    // implements the butterfly rearrangement method
     unsigned int target = 0;
     for (unsigned int position = 0; position < N; position ++)
     {
@@ -47,7 +61,8 @@ void rearrange (float data_re[], float data_im [], const unsigned int N)
     }
 }
 
-void compute(float data_re [], float data_im [], const unsigned int N)
+// computes the 2D fft output array once the butterfly rearrangement is completed
+void compute (float data_re [], float data_im [], const unsigned int N)
 {
     const float pi = -3.14159265358979323846;
     for (unsigned int step = 1; step < N; step <<=1)
@@ -61,8 +76,8 @@ void compute(float data_re [], float data_im [], const unsigned int N)
             for (unsigned int pair = group; pair < N; pair += jump)
             {
                 const unsigned int match = pair + step;
-                const float product_re = twiddle_re * data_re [match] - twiddle_im * data_im [match];
-                const float product_im = twiddle_im * data_re [match] + twiddle_re * data_im [match];
+                const float product_re = twiddle_re * data_re [match] - twiddle_im * data_im [match]; // real product
+                const float product_im = twiddle_im * data_re [match] + twiddle_re * data_im [match]; // imaginary product
                 data_re [match] = data_re [pair] - product_re; 
                 data_im [match] = data_im [pair] - product_im; 
                 data_re [pair] += product_re; 
@@ -77,22 +92,28 @@ void compute(float data_re [], float data_im [], const unsigned int N)
         }
         
             float angle = pi*((float) group+1)/step_d; 
-            twiddle_re = cos (angle); 
-            twiddle_im = sin (angle); 
+            twiddle_re = cos (angle); // real twiddle factor
+            twiddle_im = sin (angle); // imaginary twiddle factor
         }
     }
 }
 
+// finds the index of the fundamental frequency in the computed FFT array
 int find_fundamental_index(int array[])
 {
+    // index of the fundamental frequency
     int fundamentalIdx = 0; 
+    
+    // magnitude of the fundamental frequency
     int maxVal = 0;
+    
+    // ignoring the first two because they are always returning as the fundamental index
+    // needed to ignore based on results from testing
     for (int i = 2; i < ARRAY_SIZE; i++)
     {
         if (array [i] > maxVal)
         {
             maxVal = array[i];
-            // multiply by 4 to account for bin width of 4 Hz
             fundamentalIdx = i; 
         }
     }
