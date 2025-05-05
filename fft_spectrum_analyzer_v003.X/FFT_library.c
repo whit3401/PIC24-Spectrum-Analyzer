@@ -13,21 +13,25 @@
 
 #define ARRAY_SIZE 500
 
+// calculates the magnitude of the real and imaginary part of the fft output array
 void magnitude (float data_re [], float data_im [], int N)
 {
     for (int i = 0; i < ARRAY_SIZE; i++)
     {
-        // finding magnitude of real and imaginary data
+        // magnitude equation
         adcVals [i] = sqrt ((data_re[i]) * (data_re [i]) + (data_im [i]) * (data_im [i])); 
     }
 }
 
+// fft function broken into two steps, rearranging the data with bit inversions and computing the fft output array
 void fft (float data_re[], float data_im[], const unsigned int N)
 {
     rearrange (data_re, data_im, N);
     compute (data_re, data_im, N);
 }
 
+// performs bit inversion calculations and moves indices around into their proper place
+// for when they are calculated later in the compute function
 void rearrange (float data_re[], float data_im [], const unsigned int N)
 {
     unsigned int target = 0;
@@ -49,6 +53,7 @@ void rearrange (float data_re[], float data_im [], const unsigned int N)
     }
 }
 
+// computes the 2D fft output array 
 void compute (float data_re [], float data_im [], const unsigned int N)
 {
     const float pi = -3.14159265358979323846;
