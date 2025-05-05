@@ -68,6 +68,7 @@ void buzz(unsigned int freq) {
 }
 
 void stop_buzz(void){
+    //Stops buzzing by setting the timer controling the PWM off, stopping the buzz
     T2CONbits.TON = 0;
 }
 

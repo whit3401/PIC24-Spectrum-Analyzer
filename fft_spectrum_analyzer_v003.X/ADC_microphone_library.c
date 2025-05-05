@@ -19,7 +19,7 @@ volatile int sampleReady = 0;
 
 
 void begin_sampling(){
-    //enable ADC interrupts
+    //enable ADC interrupts starting the sample
     sampleReady = 0;
     init_arr();
     AD1CON1bits.ADON = 1;    // Turn on ADC
@@ -29,7 +29,7 @@ void begin_sampling(){
 }
 
 void end_sampling(){
-    //disable ADC interrupts
+    //disables ADC interrupts ending the sample
     AD1CON1bits.ADON = 0;    // Turn off ADC
     _AD1IE = 0;
     T1CONbits.TON = 0; //Turns off timer when sampling is off
@@ -49,6 +49,7 @@ volatile int* get_digital_signal_data(){
 }
     
 int is_sample_ready(){
+    //returns 1 if sample is ready, 0 if not ready
     return sampleReady;
 }
 
@@ -58,18 +59,19 @@ int get_sample_size(){
 }
 
 void timer1_init(void){
+    //Timer 1 initialization, is used for sample time
     T1CON = 0x0000;
-    T1CONbits.TCKPS = 0b10;
-    TMR1 = 0;
-    PR1 = 62499;
-    _T1IF = 0;
-    _T1IE = 1;
-    T1CONbits.TON = 0;
+    T1CONbits.TCKPS = 0b10; //sets prescaler to 64
+    TMR1 = 0;               //initializes timer1 to 0
+    PR1 = 62499;            //sets timer1 period to 0.25 seconds
+    _T1IF = 0;              //clears the interrupt flag
+    _T1IE = 1;              //enables interrupts
+    T1CONbits.TON = 0;      //initializes timer off so it doesn't buzz when initialized
 }
 
 //Initializes the ADC
 void adc_init(void){
-    
+    //ADC and timer3 initialization
     TRISAbits.TRISA0 = 1;    // Set RA0/AN0 as input
     AD1PCFGbits.PCFG0 = 0;   // RA0/AN0 set to analog
     AD1CON1bits.FORM = 0;    // Integer output
@@ -93,23 +95,25 @@ void adc_init(void){
 }
 
 void __attribute__((__interrupt__, auto_psv)) _T1Interrupt(void){
-    //Interrupt for ADC
+    //Interrupt for sampling end, ends after 0.25 seconds
     IFS0bits.T1IF = 0; 
     end_sampling();
 }
 
 void __attribute__((__interrupt__, auto_psv)) _ADC1Interrupt(void){
-    //Interrupt for ADC
+    //Interrupt for ADC1, puts the value at RA0 into adcVals array
     IFS0bits.AD1IF = 0;
     put_val(ADC1BUF0);
 }
 
 void put_val(int newValue){
+    //puts the value into adcVals, used for sampling
     adcVals[sampleCount++] = newValue;
 }
 
 //sets all array values to zero, and resets sampleCount
 void init_arr(){
+    //Initializes the array, setting all values to 0.
     for(int i = 0; i < ARRAY_SIZE; i++){
         adcVals[i] = 0;
         adcVals[i] = 0;
@@ -118,6 +122,7 @@ void init_arr(){
 }
 
 void microphone_setup(){
+    //initializes the adc 
     adc_init();
     init_arr();
 }
