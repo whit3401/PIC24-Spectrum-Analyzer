@@ -1,15 +1,10 @@
 /*
- * @file oledDisplay_API_library.h
- * @author xpress_embedo
- * @date 2 Feb, 2020
+ * File:   oledDisplay_API_library.h
+ * Author: tysen
+ * Created on April 28, 2025, 5:56 PM
  * 
- * @brief This file contains OLED drivers for SSD1306 Controller
- *
- * This library was modified and extended from github.com/xpress-embedo/OLED
- * I2C calls are from I2C library
+ * This library used as reference: github.com/xpress-embedo/OLED
  * 
- * @modified tysen
- * @date 28 April, 2025
  */
 
 #ifndef OLEDDISPLAY_API_LIBRARY_H
@@ -21,56 +16,6 @@
 extern "C"
 {
 #endif
-
-extern const uint8_t SMALL_FONTS[];
-extern const uint8_t TINY_FONTS[];
-extern const uint8_t BIG_FONTS[];
-
-typedef struct _Current_Font_s
-{
-  const uint8_t *font;        // Fonts Stored are Const
-  uint8_t x_size;
-  uint8_t y_size;
-  uint8_t offset;
-  uint8_t numchars;
-  uint8_t inverted;
-} Current_Font_s;
-
-#define LEFT                  0
-#define RIGHT                 254
-#define CENTER                255
-
-#define TRUE 1
-#define FALSE 0
-
-#define BLACK                 0
-#define WHITE                 1
-#define INVERSE               2
-
-#define SSD1306_ADDR        0x3D
-//#define SSD1306_ADDR          0x3C
-
-/* SSD1306 Display Type*/
-#define SSD1306_128_64
-// #define SSD1306_128_32
-// #define SSD1306_96_16
-
-#if defined SSD1306_128_64
-  #define SSD1306_LCDWIDTH                  128
-  #define SSD1306_LCDHEIGHT                 64
-#endif
-#if defined SSD1306_128_32
-  #define SSD1306_LCDWIDTH                  128
-  #define SSD1306_LCDHEIGHT                 32
-#endif
-#if defined SSD1306_96_16
-  #define SSD1306_LCDWIDTH                  96
-  #define SSD1306_LCDHEIGHT                 16
-#endif
-
-#define SSD1306_COMMAND                     0x00
-#define SSD1306_DATA                        0xC0
-#define SSD1306_DATA_CONTINUE               0x40
 
 /* SSD1306 Command Set*/
 // Fundamental Commands
@@ -110,40 +55,18 @@ typedef struct _Current_Font_s
 #define SSD1306_SET_PRECHARGE_PERIOD                    0xD9
 #define SSD1306_SET_VCOM_DESELECT                       0xDB
 
-/*
- * Original Function Prototypes
- *  some of these definitions/implementations may have been modified from their source material
- */
-void OLED_Init( void );
-uint8_t OLED_Width( void );
-uint8_t OLED_Height( void );
-void OLED_Update( void );
-void OLED_SetContrast( uint8_t contrast );
-void OLED_ClearDisplay( void );
-void OLED_FillDisplay( void );
-void OLED_DrawPixel( int16_t x, int16_t y, uint8_t color );
-void OLED_InvertDisplay( uint8_t value );
-void OLED_SetFont( const uint8_t *font);
-void OLED_InvertFont( uint8_t invert_status );
-void OLED_Line( int16_t x_start, int16_t y_start, int16_t x_end, int16_t y_end, uint8_t color);
-void OLED_V_Line( int16_t y_start, int16_t y_end, int16_t x_pos, uint8_t color);
-void OLED_H_Line( int16_t x_start, int16_t x_end, int16_t y_pos, uint8_t color);
-void OLED_Rectangle( int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color);
-void OLED_FillRectangle( int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color);
-void OLED_Triangle( int16_t x0, int16_t y0, int16_t x1, int16_t y1, int16_t x2, int16_t y2, uint8_t color);
-void OLED_Circle( int16_t x_center, int16_t y_center, int16_t radius, uint8_t color);
-void OLED_Image( const uint8_t *image );
-void OLED_Write( int16_t x, int16_t y, char value );
-void OLED_Write_Text( int16_t x, int16_t y, char *text, uint8_t length);
-
-/* 
- * Expanded Function Prototypes
- *  these are newly introduced functions to the library
- */
-int16_t abs(int16_t value);
+/* Function Declarations */
+int abs(int value);
 int round_num(float val);
-void OLED_Reset(void);
-void OLED_WriteFFT(int data[]);
+void oled_reset(void);
+void oled_cmd(char command);
+void oled_init(void);
+void oled_refresh(void);
+void oled_setContrast(int contrast);
+void oled_clear(void);
+void oled_drawPixel(int x, int y, int color);
+void oled_drawLine(int height, int x_pos, int color);
+void oled_writeFFT(int data[]);
 void resize_freq_array(int inputArray[], int outputArray[], int fundamental);
 
 

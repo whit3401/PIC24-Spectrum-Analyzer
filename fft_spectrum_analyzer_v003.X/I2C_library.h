@@ -13,21 +13,11 @@ extern "C" {
 #endif
 
 void delay_ms(int delay_in_ms);
-void lcd_reset(void);
-void lcd_cmd(char command);
-void lcd_init(int LCDcontrast);
-void lcd_display_setup();
-void lcd_setCursor(char x, char y);
-void lcd_printChar(char myChar);
-void lcd_scroll();
-void lcd_printStr(const char *str);
-void lcd_clear();
 
 void i2c_setup();
-
-void I2C_Start();
-void I2C_Send(uint8_t message);
-void I2C_Stop();
+void i2c_start();
+void i2c_send(char message);
+void i2c_stop();
 
 #ifdef	__cplusplus
 }

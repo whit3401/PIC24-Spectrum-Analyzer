@@ -12,6 +12,7 @@
       <itemPath>oledDisplay_API_library.h</itemPath>
       <itemPath>I2C_library.h</itemPath>
       <itemPath>shared.h</itemPath>
+      <itemPath>lcdDisplay_API_library.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -34,6 +35,7 @@
       <itemPath>oledDisplay_API_library.c</itemPath>
       <itemPath>fft_spectrum_analyzer_main_v003.c</itemPath>
       <itemPath>I2C_library.c</itemPath>
+      <itemPath>lcdDisplay_API_library.c</itemPath>
     </logicalFolder>
   </logicalFolder>
   <projectmakefile>Makefile</projectmakefile>

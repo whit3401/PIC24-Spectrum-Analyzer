@@ -8,6 +8,7 @@
 #include "xc.h"
 #include "ADC_microphone_library.h"
 #include "FFT_library.h"
+#include "lcdDisplay_API_library.h"
 #include "oledDisplay_API_library.h"
 #include "asmLib_v001.h"
 #include "button_control_library.h"
@@ -42,7 +43,7 @@ void setup(void)
     microphone_setup();
     i2c_setup();
     lcd_init(0xA);
-    OLED_Init();
+    oled_init();
     init_push_button();
     buzzer_pwm_setup();
 }
@@ -57,8 +58,8 @@ int main(void) {
     
     
     lcd_clear(); // Clear the LCD display
-    OLED_SetContrast(0xFF); // Set OLED display to maximum contrast
-    OLED_ClearDisplay(); // Clear the OLED display
+    oled_setContrast(0xFF); // Set OLED display to maximum contrast
+    oled_clear(); // Clear the OLED display
     
     
     /* 
@@ -75,8 +76,8 @@ int main(void) {
     
     resize_freq_array(sample_fft_out, display_freq_array, 100); // Fits the sample output array data to the display array
 
-    OLED_WriteFFT(display_freq_array); // Write the display array to the OLED as an FFT graph
-    OLED_Update(); // Refresh the OLED display with changes
+    oled_writeFFT(display_freq_array); // Write the display array to the OLED as an FFT graph
+    oled_refresh(); // Refresh the OLED display with changes
     
     
     int firstPress = 1; // BOOL, is this the first consecutive detection of a button press
@@ -145,8 +146,8 @@ int main(void) {
             
             /* Write the FFT output to the OLED display as a frequency domain graph */
             resize_freq_array(adcVals, display_freq_array, adcVals[fundamental_index]); // fit the data to the display array
-            OLED_WriteFFT(display_freq_array); // update the display with the graphed array
-            OLED_Update(); // refresh the screen with updates
+            oled_writeFFT(display_freq_array); // update the display with the graphed array
+            oled_refresh(); // refresh the screen with updates
             
             /* Reset arrays so old data does not affect new inputs */
             for (int i = 0; i < ARRAY_SIZE; i++)
