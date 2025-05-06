@@ -35,12 +35,11 @@ void end_sampling(){
     T1CONbits.TON = 0; //Turns off timer when sampling is off
     sampleReady = 1;
 }
+
 /*
  * This array will return values between 0 and 1023, to convert to voltage, 
  * multiply by 3.3/1024 
  */
-    //ERROR:  !! THIS NEEDS TO BE CHANGED TO ACCOMODATE NEW ARRAY SIZE ^^ !!
-
 volatile int* get_digital_signal_data(){
     //return array of data samples ordered chronologically
 

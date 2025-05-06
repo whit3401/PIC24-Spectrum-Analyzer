@@ -18,9 +18,9 @@ extern "C" {
     volatile int* get_digital_signal_data(); //returns an array of all the samples taken
     int get_sample_size(); //returns the size of the array
     int is_sample_ready();
-
+    void adc_init(void);
+    void timer1_init(void);
     void put_val(int newValue);	// add a new value to the buffer
-    void init_buffer();		// set all buffer vals to zero
     void init_arr(void);
     void microphone_setup(void);
 
